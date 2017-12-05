@@ -8,6 +8,13 @@ variable "private_key_path" {}
 variable "key_name" {
   default = "buildserver"
 }
+variable "instance_type" {
+  default = "t2.micro"
+}
+
+variable "environment_name" {
+  default = "Dev"
+}
 
 ##################################################################################
 # PROVIDERS
@@ -23,9 +30,11 @@ provider "aws" {
 # RESOURCES
 ##################################################################################
 
+
+
 resource "aws_instance" "nginx" {
   ami           = "ami-c58c1dd3"
-  instance_type = "t2.micro"
+  instance_type = "${var.instance_type}"
   key_name        = "${var.key_name}"
 
   connection {
