@@ -1,7 +1,7 @@
 provider "aws" {
   region     = "us-west-2"
-  access_key = "AKIAI33MI2XFBJUUHEUQ"
-  secret_key = "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"
+  access_key = ""
+  secret_key = ""
 }
 resource "aws_instance" "nginx" {
   ami = "ami-bf4193c7"
