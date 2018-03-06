@@ -1,3 +1,11 @@
+terraform {
+  backend "s3" {
+    bucket = "qt-terraform-backend-1"
+    key    = "my-module-demo.state"
+    region = "us-west-2"
+  }
+}
+
 module "web" {
     source = ".//Modules/web"
     aws_access_key = "${var.accesskey}"
