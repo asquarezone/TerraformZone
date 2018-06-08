@@ -2,9 +2,10 @@
 #terraform init --backend-config="dynamodb_table=qt-terraform" --backend-config="access_key=whatever" --backend-config="secret_key=whatever"
 terraform {
   backend "s3" {
-    bucket = "qt-terraform-backend-1"
+    bucket = "qt-terraform-backend-2"
     key    = "my-module-demo.state"
     region = "us-west-2"
+    dynamodb_table = "qt-terraform-1"
   }
 }
 

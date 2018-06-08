@@ -5,7 +5,7 @@ variable "securitygroups" {
     default = ["AllTCP"]
 }
 variable "private_key_path" {
-    default = ".//Modules/web/terraform.pem"
+    default = "packer.pem"
 }
 variable "homepagepath" {
     default = "index.html"
