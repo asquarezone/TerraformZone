@@ -1,0 +1,6 @@
+{
+  "client_id": "db3e33f1-b8d5-41fd-9b07-eb409c979640",
+  "client_secret": "6f7d4d17-2731-40c1-924e-895d5b07fc75",
+  "tenant_id": "aeefb57f-cec2-4491-bf00-268b13adf57b"
+  "subscription_id": "58376b06-f20d-4a7a-a75d-cbd03b2135a6"
+}

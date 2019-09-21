@@ -1,0 +1,22 @@
+packer => images
+
+    provisioning
+	
+	
+terraform
+   => environment  
+   
+   => provider
+   => variables
+   => locals
+   => datasource
+   => resource => attributes & argument
+   => outputs
+   => module
+   
+   => backend 
+       => state storage
+	   => state locking
+	   
+   => workspaces
+   
