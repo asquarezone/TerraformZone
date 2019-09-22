@@ -19,11 +19,3 @@ module "tomcatinaws" {
   region    = "eu-west-3"
   
 }
-
-terraform {
-    backend "s3"{
-        bucket = "qts3terraformclassroom"
-        key = "openmrs-deploy"
-        region = "eu-west-3"
-    }
-}
