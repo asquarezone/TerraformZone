@@ -10,7 +10,7 @@ resource "aws_vpc" "myvpc" {
 # Web Subnet
 resource "aws_subnet" "web" {
     vpc_id                  = aws_vpc.myvpc.id
-    cidr_block              = "192.168.0.0/24"
+    cidr_block              = cidrsubnet(var.vpc_cidr,8,0)
     availability_zone       = "us-west-2a"
 
     tags = {
@@ -21,7 +21,7 @@ resource "aws_subnet" "web" {
 
 resource "aws_subnet" "app" {
     vpc_id                  = aws_vpc.myvpc.id
-    cidr_block              = "192.168.1.0/24"
+    cidr_block              = cidrsubnet(var.vpc_cidr,8,1)
     availability_zone       = "us-west-2b"
 
     tags = {
@@ -32,7 +32,7 @@ resource "aws_subnet" "app" {
 
 resource "aws_subnet" "db" {
     vpc_id                  = aws_vpc.myvpc.id
-    cidr_block              = "192.168.2.0/24"
+    cidr_block              = cidrsubnet(var.vpc_cidr,8,2)
     availability_zone       = "us-west-2c"
 
     tags = {
@@ -43,7 +43,7 @@ resource "aws_subnet" "db" {
 
 resource "aws_subnet" "mgmt" {
     vpc_id                  = aws_vpc.myvpc.id
-    cidr_block              = "192.168.3.0/24"
+    cidr_block              = cidrsubnet(var.vpc_cidr,8,3)
     availability_zone       = "us-west-2a"
 
     tags = {

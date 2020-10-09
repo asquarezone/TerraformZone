@@ -5,8 +5,10 @@ variable region {
   description = "target region for creating resources"
 }
 
+#
 variable vpc_cidr {
   type        = string
   default     = "192.168.0.0/16"
   description = "cidr range of vpc"
 }
+
