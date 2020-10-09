@@ -11,7 +11,7 @@ resource "aws_vpc" "myvpc" {
 resource "aws_subnet" "web" {
     vpc_id                  = aws_vpc.myvpc.id
     cidr_block              = cidrsubnet(var.vpc_cidr,8,0)
-    availability_zone       = "us-west-2a"
+    availability_zone       = format("%sa",var.region)
 
     tags = {
         Name = "web"
@@ -22,7 +22,7 @@ resource "aws_subnet" "web" {
 resource "aws_subnet" "app" {
     vpc_id                  = aws_vpc.myvpc.id
     cidr_block              = cidrsubnet(var.vpc_cidr,8,1)
-    availability_zone       = "us-west-2b"
+    availability_zone       = format("%sb",var.region)
 
     tags = {
         Name = "app"
@@ -33,7 +33,7 @@ resource "aws_subnet" "app" {
 resource "aws_subnet" "db" {
     vpc_id                  = aws_vpc.myvpc.id
     cidr_block              = cidrsubnet(var.vpc_cidr,8,2)
-    availability_zone       = "us-west-2c"
+    availability_zone       = format("%sc",var.region)
 
     tags = {
         Name = "db"
@@ -44,7 +44,7 @@ resource "aws_subnet" "db" {
 resource "aws_subnet" "mgmt" {
     vpc_id                  = aws_vpc.myvpc.id
     cidr_block              = cidrsubnet(var.vpc_cidr,8,3)
-    availability_zone       = "us-west-2a"
+    availability_zone       = format("%sa",var.region)
 
     tags = {
         Name = "mgmt"
