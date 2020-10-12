@@ -10,3 +10,10 @@ variable primary_network_cidr {
   description = "address range of primary"
 }
 
+variable primary_subnets {
+  type        = list(string)
+  default     = ["web", "app", "db", "mgmt"]
+  description = "subnet names of the primary"
+}
+
+
