@@ -13,3 +13,15 @@ resource "aws_subnet" "subnets" {
         Name    = var.primary_subnets[count.index]
     }
 }
+
+resource "aws_internet_gateway" "igw" {
+    vpc_id      = aws_vpc.ntier.id
+    tags        = {
+        Name    = "ntier primary"
+    }
+
+    depends_on  = [
+        aws_subnet.subnets
+    ]
+
+}
