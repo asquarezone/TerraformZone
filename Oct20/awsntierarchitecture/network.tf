@@ -42,11 +42,6 @@ resource "aws_route_table" "route_tables" {
     }
 }
 
-locals {
-  public_subnets    = lookup(var.associations, "public")
-  private_subnets   = lookup(var.associations, "private")
-}
-
 
 ## associate public subnets
 resource "aws_route_table_association" "public-associations" {
@@ -63,4 +58,26 @@ resource "aws_route_table_association" "private-associations" {
     count               = length(local.private_subnets)
 }
 
+## Fetch subnet ids for db subnets
+data "aws_subnet_ids" "dbsubnets" {
+    vpc_id          = aws_vpc.ntier.id
+    filter {
+        name   = "tag:Name"
+        values = local.dbsubnets 
+    }
+}
+
+resource "aws_db_subnet_group" "ntier-db-group" {
+    name            = "ntier"
+    subnet_ids      = data.aws_subnet_ids.dbsubnets.ids
+    tags            = {
+        Name        =  "ntier-db-subnet-group"
+    }
+
+    depends_on  = [
+        aws_subnet.subnets,
+        aws_route_table_association.public-associations,
+        aws_route_table_association.private-associations,
+    ]
+}
 
