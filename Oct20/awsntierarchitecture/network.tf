@@ -42,3 +42,25 @@ resource "aws_route_table" "route_tables" {
     }
 }
 
+locals {
+  public_subnets    = lookup(var.associations, "public")
+  private_subnets   = lookup(var.associations, "private")
+}
+
+
+## associate public subnets
+resource "aws_route_table_association" "public-associations" {
+    subnet_id           = aws_subnet.subnets[local.public_subnets[count.index]].id
+    route_table_id      = aws_route_table.route_tables[0].id
+    count               = length(local.public_subnets)
+}
+
+## associate private subnets
+
+resource "aws_route_table_association" "private-associations" {
+    subnet_id           = aws_subnet.subnets[local.private_subnets[count.index]].id
+    route_table_id      = aws_route_table.route_tables[1].id
+    count               = length(local.private_subnets)
+}
+
+

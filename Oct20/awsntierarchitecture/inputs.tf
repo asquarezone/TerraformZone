@@ -22,4 +22,13 @@ variable route_table_names {
   description = "Route tables for ntier subnet"
 }
 
+variable associations {
+  type        = map
+
+  default     = {
+    public    = [ 0,3,4 ]
+    private   = [ 1,2,5,6] 
+  }
+}
+
 
