@@ -12,7 +12,7 @@ variable primary_network_cidr {
 
 variable primary_subnets {
   type        = list(string)
-  default     = ["web", "app", "db", "mgmt"]
+  default     = ["web", "app", "db", "mgmt", "web2", "app2", "db2"]
   description = "subnet names of the primary"
 }
 
