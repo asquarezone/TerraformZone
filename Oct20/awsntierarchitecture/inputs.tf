@@ -16,4 +16,10 @@ variable primary_subnets {
   description = "subnet names of the primary"
 }
 
+variable route_table_names {
+  type        = list(string)
+  default     = ["public", "private"]
+  description = "Route tables for ntier subnet"
+}
+
 
