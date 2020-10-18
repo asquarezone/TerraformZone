@@ -62,6 +62,27 @@ variable primary_db_identifier {
   description = "identifier of primary db instance"
 }
 
+variable appserver_instance_type {
+  type        = string
+  default     = "t2.micro"
+  description = "size of appserver"
+}
+
+variable key_name {
+  type        = string
+  default     = "awsclassroom"
+  description = "aws key pair name"
+}
+
+variable ubuntu_18_ami {
+  type        = string
+  default     = "ami-07a29e5e945228fa1"
+  description = "ami id of ubuntu instance"
+
+}
+
+
+
 
 
 
