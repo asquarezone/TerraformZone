@@ -67,17 +67,5 @@ data "aws_subnet_ids" "dbsubnets" {
     }
 }
 
-resource "aws_db_subnet_group" "ntier-db-group" {
-    name            = "ntier"
-    subnet_ids      = data.aws_subnet_ids.dbsubnets.ids
-    tags            = {
-        Name        =  "ntier-db-subnet-group"
-    }
 
-    depends_on  = [
-        aws_subnet.subnets,
-        aws_route_table_association.public-associations,
-        aws_route_table_association.private-associations,
-    ]
-}
 
