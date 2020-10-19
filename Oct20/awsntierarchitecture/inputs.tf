@@ -68,6 +68,12 @@ variable appserver_instance_type {
   description = "size of appserver"
 }
 
+variable webserver_instance_type {
+  type        = string
+  default     = "t2.micro"
+  description = "size of webserver"
+}
+
 variable key_name {
   type        = string
   default     = "awsclassroom"
