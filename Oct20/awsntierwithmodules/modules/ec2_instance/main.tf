@@ -1,6 +1,6 @@
 # Security group for appserver
 resource "aws_security_group" "app-sg" {
-    name            = "allow_app"
+    name            = var.sgname
     description     = "security group for appserver"
     vpc_id          = var.vpc_id
 
@@ -10,6 +10,14 @@ resource "aws_security_group" "app-sg" {
         cidr_blocks = [ local.anywhere_cidr ]
         protocol    = local.protocol
     }
+
+    ingress {
+        from_port   = local.port_http
+        to_port     = local.port_http
+        cidr_blocks = [ local.anywhere_cidr ]
+        protocol    = local.protocol
+    }
+
 
     ingress {
         from_port   = local.port_ssh

@@ -37,3 +37,19 @@ module appserver {
 
 }
 
+module webserver {
+  source                = "./modules/ec2_instance"
+  vpc_id                = module.backupnetwork.primary_vpc_id
+  inline_scripts        = [
+            "sudo apt update",
+            "sudo apt install nginx -y"
+        ]
+  providers             = {
+      aws               = aws.west
+  }
+  tagname               = "webserver"
+  subnet_id             = module.backupnetwork.subnets[5]
+  sgname                = "allow_web"
+
+}
+

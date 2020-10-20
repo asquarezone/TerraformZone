@@ -38,5 +38,12 @@ variable ubuntu_18_ami {
 
 }
 
+variable sgname {
+  type        = string
+  default     = "allow_app"
+  description = "security group name"
+}
+
+
 
 
