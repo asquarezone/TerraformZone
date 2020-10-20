@@ -11,10 +11,6 @@ module backupnetwork {
   }
 }
 
-module primarydb {
-  source = "./modules/rds_instance"
-  vpc_id  = module.network.primary_vpc_id
-}
 
 module secondarydb {
   source = "./modules/rds_instance"
