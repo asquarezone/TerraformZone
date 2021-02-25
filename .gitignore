@@ -4,3 +4,4 @@
 *.pem
 # Module directory
 .terraform/
+*.hcl
