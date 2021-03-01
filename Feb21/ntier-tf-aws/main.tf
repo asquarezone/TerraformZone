@@ -9,9 +9,15 @@ variable "region" {
   
 }
 
+variable "vpccidr" {
+  type = string
+  default = "192.168.0.0/16"
+}
+
+
 # we need to create a vpc resource
 resource "aws_vpc" "ntiervpc" {
-    cidr_block = "192.168.0.0/16"
+    cidr_block = var.vpccidr
     enable_dns_support = true
     enable_dns_hostnames = true
 
