@@ -13,3 +13,15 @@ resource "aws_vpc" "ntiervpc" {
     }
   
 }
+
+# Lets create a subnet
+resource "aws_subnet" "web1" {
+  vpc_id = aws_vpc.ntiervpc.id
+  cidr_block = "192.168.0.0/24"
+  availability_zone = "us-west-2a"
+
+  tags = {
+      "Name" = "web1"
+    }
+  
+}
