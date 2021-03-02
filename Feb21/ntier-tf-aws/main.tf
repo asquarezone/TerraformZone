@@ -18,7 +18,7 @@ resource "aws_subnet" "subnets" {
   availability_zone = "${var.region}${count.index%2 == 0?"a":"b"}"
 
   tags = {
-      "Name" = var.subnets[count.index]
+      "Name" = local.subnets[count.index]
     }
   
   depends_on = [ 
