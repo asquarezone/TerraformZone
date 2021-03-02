@@ -14,7 +14,7 @@ resource "aws_vpc" "ntiervpc" {
 resource "aws_subnet" "subnets" {
   count = 6
   vpc_id = aws_vpc.ntiervpc.id
-  cidr_block = var.cidrranges[count.index]
+  cidr_block = cidrsubnet(var.vpccidr,8,count.index)
   availability_zone = var.subnetazs[count.index]
 
   tags = {
