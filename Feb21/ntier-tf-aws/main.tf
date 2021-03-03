@@ -27,3 +27,15 @@ resource "aws_subnet" "subnets" {
   
 }
 
+resource "aws_internet_gateway" "ntierigw" {
+    vpc_id = aws_vpc.ntiervpc.id
+
+    tags = {
+      "Name" = local.igw_name
+    }
+
+    depends_on = [
+      aws_vpc.ntiervpc
+    ]
+}
+
