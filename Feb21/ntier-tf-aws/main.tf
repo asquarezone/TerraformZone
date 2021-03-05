@@ -88,16 +88,16 @@ resource "aws_route_table" "privatert" {
   
 }
 
-resource "aws_route_table_association" "app1association" {
 
-  count = 4
+# for each subnet create an association
+resource "aws_route_table_association" "privateassociations" {
+  for_each = data.aws_subnet_ids.privatesubnets.ids
   route_table_id = aws_route_table.privatert.id
-  subnet_id =  aws_subnet.subnets[count.index + 2].id
+  subnet_id =  each.key
 
   depends_on = [ 
     aws_route_table.privatert
    ]
+
   
 }
-
-
