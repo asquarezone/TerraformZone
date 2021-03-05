@@ -12,7 +12,7 @@ resource "aws_vpc" "ntiervpc" {
 
 # Lets create all subnets
 resource "aws_subnet" "subnets" {
-  count = 6
+  count = length(local.subnets)
   vpc_id = aws_vpc.ntiervpc.id
   cidr_block = cidrsubnet(var.vpccidr,8,count.index)
   availability_zone = "${var.region}${count.index%2 == 0?"a":"b"}"
@@ -62,9 +62,10 @@ resource "aws_route_table" "publicrt" {
 
 
 resource "aws_route_table_association" "webassociations" {
-  for_each = data.aws_subnet_ids.publicsubnets.ids
+  count = 2
   route_table_id = aws_route_table.publicrt.id
-  subnet_id =  each.key
+  subnet_id =  aws_subnet.subnets[count.index].id
+
   depends_on = [ 
     aws_route_table.publicrt
    ]
@@ -89,15 +90,16 @@ resource "aws_route_table" "privatert" {
 }
 
 
-# for each subnet create an association
-resource "aws_route_table_association" "privateassociations" {
-  for_each = data.aws_subnet_ids.privatesubnets.ids
+
+resource "aws_route_table_association" "privateassociation" {
+
+  count = 4
   route_table_id = aws_route_table.privatert.id
-  subnet_id =  each.key
+  subnet_id =  aws_subnet.subnets[count.index + 2].id
 
   depends_on = [ 
     aws_route_table.privatert
    ]
 
-  
 }
+
