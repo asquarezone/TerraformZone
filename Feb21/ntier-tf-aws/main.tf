@@ -160,3 +160,24 @@ resource "aws_security_group" "appsg" {
   
 }
 
+resource "aws_security_group" "dbsg" {
+  name = "dbsg"
+  description = "open port 3306 within vpc"
+  vpc_id = aws_vpc.ntiervpc.id
+
+  ingress {
+    cidr_blocks = [ var.vpccidr ]
+    description = "open app port"
+    from_port = local.dbport
+    protocol = local.tcp
+    to_port = local.dbport
+  }
+
+  tags = {
+    "Name" = "dbsg"
+  }
+
+  depends_on = [ aws_route_table.privatert, aws_route_table.publicrt  ]
+  
+}
+

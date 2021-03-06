@@ -6,4 +6,5 @@ locals {
   http = 80
   tcp  = "tcp"
   appport = 8080
+  dbport  = 3306
 }
