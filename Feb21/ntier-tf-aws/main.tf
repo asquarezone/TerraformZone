@@ -124,7 +124,39 @@ resource "aws_security_group" "websg" {
     protocol = local.tcp
     to_port = local.http
   }
+  tags = {
+    "Name" = "websg"
+  }
   
   depends_on = [ aws_route_table.privatert, aws_route_table.publicrt  ]
+}
+
+resource "aws_security_group" "appsg" {
+  name = "appsg"
+  description = "open port 8080 and 22 within vpc"
+  vpc_id = aws_vpc.ntiervpc.id
+
+  ingress {
+    cidr_blocks = [ var.vpccidr ]
+    description = "open ssh port"
+    from_port = local.ssh
+    protocol = local.tcp
+    to_port = local.ssh
+  }
+
+  ingress {
+    cidr_blocks = [ var.vpccidr ]
+    description = "open app port"
+    from_port = local.appport
+    protocol = local.tcp
+    to_port = local.appport
+  }
+
+  tags = {
+    "Name" = "appsg"
+  }
+
+  depends_on = [ aws_route_table.privatert, aws_route_table.publicrt  ]
+  
 }
 

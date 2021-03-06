@@ -5,4 +5,5 @@ locals {
   ssh = 22
   http = 80
   tcp  = "tcp"
+  appport = 8080
 }
