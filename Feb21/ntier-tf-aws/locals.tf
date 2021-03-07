@@ -7,4 +7,5 @@ locals {
   tcp  = "tcp"
   appport = 8080
   dbport  = 3306
+  db_subnet_group_name = "ntierdbsubnet"
 }
