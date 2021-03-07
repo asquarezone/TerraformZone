@@ -28,6 +28,7 @@ resource "aws_db_instance" "ntierdb" {
     tags = {
       "Name" = "ntierdb"
     }
+    skip_final_snapshot  = true
 
     depends_on = [ 
         aws_db_subnet_group.dbsubnetgroup
