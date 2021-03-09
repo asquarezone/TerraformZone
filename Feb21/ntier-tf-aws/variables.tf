@@ -11,4 +11,11 @@ variable "vpccidr" {
   description = "cidr range of the vpc"
 }
 
+variable "webserverinstancetype" {
+  type = string
+  default = "t2.micro"
+  description = "web server instance type"
+  
+}
+
 
