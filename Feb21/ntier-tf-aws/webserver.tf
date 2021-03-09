@@ -3,7 +3,7 @@ resource "aws_instance" "appserver1" {
     associate_public_ip_address = false
     instance_type = var.webserverinstancetype
     key_name = "terraform"
-    security_groups = [ aws_security_group.appsg.id ]
+    vpc_security_group_ids = [ aws_security_group.appsg.id ]
     subnet_id = aws_subnet.subnets[2].id
     tags = {
       "Name" = "appserver 1"
@@ -17,7 +17,7 @@ resource "aws_instance" "webserver1" {
     associate_public_ip_address = true
     instance_type = var.webserverinstancetype
     key_name = "terraform"
-    security_groups = [ aws_security_group.websg.id ]
+    vpc_security_group_ids = [ aws_security_group.websg.id ]
     subnet_id = aws_subnet.subnets[0].id
     tags = {
       "Name" = "webserver 1"
