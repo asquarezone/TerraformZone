@@ -22,6 +22,17 @@ resource "aws_instance" "webserver1" {
     tags = {
       "Name" = "webserver 1"
     }
+    # ssh -i terraform.pem ubuntu@publicip
+    connection {
+      type = "ssh"
+      user = "ubuntu"
+      private_key = file("./terraform.pem")
+      host = self.public_ip
+    }
+    provisioner "remote-exec" {
+      inline = ["sudo apt update", "sudo apt install apache2 -y"]
+    }
+    
     depends_on = [ aws_db_instance.ntierdb ]
   
 }
