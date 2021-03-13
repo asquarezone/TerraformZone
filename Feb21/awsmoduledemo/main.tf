@@ -18,6 +18,6 @@ module "vpc" {
 
   tags = {
     Terraform = "true"
-    Environment = "dev"
+    Environment = "${terraform.workspace}"
   }
 }
