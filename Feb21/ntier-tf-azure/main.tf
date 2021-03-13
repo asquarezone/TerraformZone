@@ -86,3 +86,43 @@ resource "azurerm_network_security_group" "webnsg" {
 
   
 }
+
+resource "azurerm_public_ip" "webpublicip" {
+    name = local.webpublicipname
+    resource_group_name = local.rgname
+    location = var.location
+    allocation_method = "Dynamic"
+
+    depends_on = [
+      azurerm_network_security_group.webnsg
+    ]
+  
+}
+
+resource "azurerm_network_interface" "vmnic" {
+    name = local.nicname
+    resource_group_name = local.rgname
+    location = var.location
+
+    ip_configuration {
+      name = "webnicconfig"
+      subnet_id = azurerm_subnet.subnets[0].id
+      private_ip_address_allocation = "Dynamic"
+      public_ip_address_id = azurerm_public_ip.webpublicip.id
+    }
+
+    depends_on = [
+        azurerm_public_ip.webpublicip,
+        azurerm_network_security_group.webnsg,
+        azurerm_subnet.subnets
+      
+    ]
+
+  
+}
+
+resource "azurerm_network_interface_security_group_association" "web" {
+    network_interface_id = azurerm_network_interface.vmnic.id
+    network_security_group_id = azurerm_network_security_group.webnsg.id
+  
+}
