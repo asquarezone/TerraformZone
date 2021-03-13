@@ -1,0 +1,4 @@
+locals {
+  rgname = "ntierrg"
+  
+}
