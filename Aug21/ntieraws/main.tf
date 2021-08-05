@@ -19,3 +19,15 @@ resource "aws_vpc" "ntiervpc" {
     }
   
 }
+
+# depends on AWS VPC
+resource "aws_subnet" "websubnet" {
+
+    cidr_block = "10.10.0.0/24"
+    availability_zone = "ap-south-1a"
+    tags = {
+      "Name" = "ntier-web"
+    }
+    vpc_id = aws_vpc.ntiervpc.id
+  
+}
