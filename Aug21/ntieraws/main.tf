@@ -19,8 +19,10 @@ resource "aws_vpc" "ntiervpc" {
     }
   
 }
+# aws_vpc.ntiervpc.id
 
 # depends on AWS VPC
+# web subnet
 resource "aws_subnet" "websubnet" {
 
     cidr_block = "10.10.0.0/24"
@@ -29,5 +31,25 @@ resource "aws_subnet" "websubnet" {
       "Name" = "ntier-web"
     }
     vpc_id = aws_vpc.ntiervpc.id
+  
+}
+
+resource "aws_subnet" "appsubnet" {
+    cidr_block = "10.10.1.0/24"
+    availability_zone = "ap-south-1a"
+    tags = {
+      "Name" = "ntier-app"
+    }
+    vpc_id = aws_vpc.ntiervpc.id
+  
+}
+
+resource "aws_subnet" "dbsubnet" {
+  cidr_block = "10.10.2.0/24"
+  availability_zone = "ap-south-1a"
+  tags = {
+    "Name" = "ntier-db"
+  }
+  vpc_id = aws_vpc.ntiervpc.id
   
 }
