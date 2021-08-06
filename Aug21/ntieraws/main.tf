@@ -1,5 +1,5 @@
 resource "aws_vpc" "ntiervpc" {
-    cidr_block = "10.10.0.0/16"
+    cidr_block = var.ntier_cidr
 
     tags = {
       "Name" = "ntier"
