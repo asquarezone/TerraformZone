@@ -17,3 +17,8 @@ variable "ntier_subnet_azs" {
     default = ["ap-south-1a","ap-south-1a","ap-south-1a"]
   
 }
+
+variable "ntier_subnet_tags" {
+    default = ["ntier-web1", "ntier-app1", "ntier-db1"]
+  
+}
