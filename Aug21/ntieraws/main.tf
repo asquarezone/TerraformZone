@@ -11,9 +11,9 @@ resource "aws_vpc" "ntiervpc" {
 # depending on subnet cidr variables
 resource "aws_subnet" "subnets" {
    
-   count = length(var.ntier_subnet_cidrs)
+   count = length(var.ntier_subnet_azs)
 
-   cidr_block = var.ntier_subnet_cidrs[count.index]
+   cidr_block = cidrsubnet(var.ntier_cidr, 8, count.index)
    availability_zone = var.ntier_subnet_azs[count.index]
    tags = {
       "Name" = var.ntier_subnet_tags[count.index]
