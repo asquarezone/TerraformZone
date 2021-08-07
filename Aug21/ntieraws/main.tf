@@ -22,3 +22,14 @@ resource "aws_subnet" "subnets" {
   
 }
 
+# Create an internet gateway and attach to vpc
+
+resource "aws_internet_gateway" "ntier-igw" {
+  vpc_id = aws_vpc.ntiervpc.id
+
+  tags = {
+    "Name" = "ntier-igw"
+  }
+  
+}
+
