@@ -18,3 +18,8 @@ variable "ntier_subnet_tags" {
     default = ["ntier-web1", "ntier-app1", "ntier-db1"]
   
 }
+
+variable "web_subnet_indexes" {
+    type = list(number)
+    default = [ 0 ]
+}

@@ -24,7 +24,7 @@ resource "aws_subnet" "subnets" {
 
 # Create an internet gateway and attach to vpc
 
-resource "aws_internet_gateway" "ntier-igw" {
+resource "aws_internet_gateway" "ntierigw" {
   vpc_id = aws_vpc.ntiervpc.id
 
   tags = {
@@ -33,3 +33,25 @@ resource "aws_internet_gateway" "ntier-igw" {
   
 }
 
+# create a public route table
+
+resource "aws_route_table" "publicrt" {
+  vpc_id = aws_vpc.ntiervpc.id
+  route = [ ]
+  
+  tags = {
+    "Name" = "ntier-publicrt"
+  }
+}
+
+resource "aws_route" "publicroute" {
+  route_table_id = aws_route_table.publicrt.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.ntierigw.id
+}
+
+resource "aws_route_table_association" "publicrtassociations" {
+  count = length(var.web_subnet_indexes)
+  subnet_id = aws_subnet.subnets[var.web_subnet_indexes[count.index]].id
+  route_table_id = aws_route_table.publicrt.id
+}
