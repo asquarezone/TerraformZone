@@ -8,12 +8,10 @@ resource "aws_vpc" "ntiervpc" {
 }
 # aws_vpc.ntiervpc.id
 
-# depends on AWS VPC
-# web subnet
-
+# depending on subnet cidr variables
 resource "aws_subnet" "subnets" {
    
-   count = 3
+   count = length(var.ntier_subnet_cidrs)
 
    cidr_block = var.ntier_subnet_cidrs[count.index]
    availability_zone = var.ntier_subnet_azs[count.index]
