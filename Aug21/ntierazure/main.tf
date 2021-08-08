@@ -3,6 +3,9 @@
 resource "azurerm_resource_group" "ntierrg" {
     name = "ntier"
     location = var.location
+    tags = {
+      "environment" = "Developer"
+    }
 }
 
 resource "azurerm_virtual_network" "ntiervnet" {
@@ -14,6 +17,9 @@ resource "azurerm_virtual_network" "ntiervnet" {
     depends_on = [
       azurerm_resource_group.ntierrg
     ]
+    tags = {
+      "environment" = "Developer"
+    }
 }
 
 resource "azurerm_subnet" "subnets" {
@@ -23,5 +29,100 @@ resource "azurerm_subnet" "subnets" {
     resource_group_name = azurerm_resource_group.ntierrg.name
     virtual_network_name = azurerm_virtual_network.ntiervnet.name
     address_prefixes = [cidrsubnet(var.address_space,8,count.index)]
+
+    depends_on = [
+      azurerm_virtual_network.ntiervnet
+    ]
+  
+}
+
+resource "azurerm_public_ip" "webpublicip" {
+    name = local.publicipname
+    resource_group_name = azurerm_resource_group.ntierrg.name
+    location = var.location
+    allocation_method = "Dynamic"
+
+    tags = {
+      "environment" = "Developer"
+    }
+  
+}
+
+resource "azurerm_network_interface" "webnic" {
+    name = local.webnic
+    resource_group_name = azurerm_resource_group.ntierrg.name
+    location = var.location
+    ip_configuration {
+        name = "${local.webnic}config"
+        subnet_id = azurerm_subnet.subnets[0].id
+        private_ip_address_allocation = "Dynamic"
+        public_ip_address_id = azurerm_public_ip.webpublicip.id
+
+    }
+    tags = {
+      "environment" = "Developer"
+    }
+
+    depends_on = [
+        azurerm_public_ip.webpublicip
+    ]
+
+  
+}
+
+resource "azurerm_network_security_group" "webnsg" {
+    name = local.webnsg
+    resource_group_name = azurerm_resource_group.ntierrg.name
+    location = var.location
+
+    tags = {
+      "environment" = "Developer"
+    }  
+  
+}
+
+resource "azurerm_network_security_rule" "openssh" {
+    resource_group_name = azurerm_resource_group.ntierrg.name
+    network_security_group_name = azurerm_network_security_group.webnsg.name
+    name                        = local.sshrule
+    priority                    = 1000
+    direction                   = "Inbound"
+    access                      = "Allow"
+    protocol                    = "Tcp"
+    source_port_range           = "*"
+    destination_port_range      = "22"
+    source_address_prefix       = "*"
+    destination_address_prefix  = "*"
+
+    depends_on = [
+      azurerm_network_security_group.webnsg
+    ]
+
+  
+}
+
+resource "azurerm_network_security_rule" "openhttp" {
+    resource_group_name = azurerm_resource_group.ntierrg.name
+    network_security_group_name = azurerm_network_security_group.webnsg.name
+    name                        = local.httprule
+    priority                    = 1010
+    direction                   = "Inbound"
+    access                      = "Allow"
+    protocol                    = "Tcp"
+    source_port_range           = "*"
+    destination_port_range      = "80"
+    source_address_prefix       = "*"
+    destination_address_prefix  = "*"
+
+    depends_on = [
+      azurerm_network_security_group.webnsg
+    ]
+  
+}
+
+
+resource "azurerm_network_interface_security_group_association" "webnsgassociation" {
+    network_interface_id = azurerm_network_interface.webnic.id
+    network_security_group_id = azurerm_network_security_group.webnsg.id
   
 }
