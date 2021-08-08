@@ -23,3 +23,9 @@ variable "web_subnet_indexes" {
     type = list(number)
     default = [ 0 ]
 }
+
+variable "other_subnet_indexes" {
+    type = list(number)
+    default = [ 1,2 ]
+  
+}

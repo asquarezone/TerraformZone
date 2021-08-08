@@ -19,6 +19,10 @@ resource "aws_subnet" "subnets" {
       "Name" = var.ntier_subnet_tags[count.index]
     }
     vpc_id = aws_vpc.ntiervpc.id
+
+    depends_on = [
+      aws_vpc.ntiervpc
+    ]
   
 }
 
@@ -30,6 +34,10 @@ resource "aws_internet_gateway" "ntierigw" {
   tags = {
     "Name" = "ntier-igw"
   }
+
+  depends_on = [
+    aws_vpc.ntiervpc
+  ]
   
 }
 
@@ -42,6 +50,11 @@ resource "aws_route_table" "publicrt" {
   tags = {
     "Name" = "ntier-publicrt"
   }
+
+  depends_on = [
+    aws_vpc.ntiervpc,
+    aws_subnet.subnets  
+  ]
 }
 
 resource "aws_route" "publicroute" {
@@ -64,6 +77,12 @@ resource "aws_security_group" "websg" {
   tags = {
     "Name" = "Openhttp"
   }
+  depends_on = [
+    aws_vpc.ntiervpc,
+    aws_subnet.subnets,
+    aws_route_table.publicrt,
+    aws_route_table.ntierprivatert
+  ]
 
 }
 
@@ -75,6 +94,7 @@ resource "aws_security_group_rule" "websghttp" {
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = aws_security_group.websg.id
   
+  
 }
 
 resource "aws_security_group_rule" "websgssh" {
@@ -84,6 +104,8 @@ resource "aws_security_group_rule" "websgssh" {
   protocol = "tcp"
   cidr_blocks = ["0.0.0.0/0"]
   security_group_id = aws_security_group.websg.id
+
+  
   
 }
 
@@ -93,5 +115,34 @@ resource "aws_instance" "webserver1" {
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.websg.id]
   subnet_id = aws_subnet.subnets[0].id
+
+  depends_on = [
+    aws_vpc.ntiervpc,
+    aws_subnet.subnets,
+    aws_security_group.websg,
+    aws_route_table.publicrt
+
+  ]
   
+}
+
+resource "aws_route_table" "ntierprivatert" {
+  vpc_id = aws_vpc.ntiervpc.id
+  route = [ ]
+  
+  tags = {
+    "Name" = "ntier-privatert"
+  }
+  
+}
+
+resource "aws_route_table_association" "privatertassociations" {
+  count = length(var.other_subnet_indexes)
+  subnet_id = aws_subnet.subnets[var.other_subnet_indexes[count.index]].id
+  route_table_id = aws_route_table.ntierprivatert.id
+
+  depends_on = [
+    aws_subnet.subnets,
+    aws_route_table.ntierprivatert
+  ]
 }
