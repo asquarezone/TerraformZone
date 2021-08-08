@@ -126,3 +126,41 @@ resource "azurerm_network_interface_security_group_association" "webnsgassociati
     network_security_group_id = azurerm_network_security_group.webnsg.id
   
 }
+
+resource "azurerm_linux_virtual_machine" "webvm" {
+    name = local.webvm
+    resource_group_name = azurerm_resource_group.ntierrg.name
+    location = var.location
+    admin_username = var.username
+    admin_password = var.password
+    disable_password_authentication = false
+
+    network_interface_ids = [azurerm_network_interface.webnic.id]
+    size = "Standard_B1s"
+
+    os_disk {
+        name = local.webvmdisk
+        caching = "ReadWrite"
+        storage_account_type = "Premium_LRS"
+    }
+
+    source_image_reference {
+        publisher = "Canonical"
+        offer = "UbuntuServer"
+        sku = "18.04-LTS"
+        version = "latest"
+      
+    }
+
+    tags = {
+      "environment" = "Developer"
+    }
+
+    depends_on = [
+      azurerm_subnet.subnets,
+      azurerm_network_interface.webnic,
+      azurerm_network_security_group.webnsg
+    ]
+
+  
+}

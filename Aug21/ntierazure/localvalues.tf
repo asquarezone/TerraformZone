@@ -7,4 +7,8 @@ locals {
     sshrule = "openssh"
 
     httprule = "openhttp"
+
+    webvm = "ntierwebvm"
+
+    webvmdisk = "ntiervmosdisk"
 }

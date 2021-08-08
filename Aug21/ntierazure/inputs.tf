@@ -29,3 +29,13 @@ variable "subscription_id" {
 variable "tenant_id" {
   type = string
 }
+
+variable "username" {
+    type = string
+    default = "qtdevops"
+}
+
+variable "password" {
+    type = string
+  
+}
