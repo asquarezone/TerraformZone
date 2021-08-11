@@ -172,3 +172,24 @@ resource "azurerm_linux_virtual_machine" "webvm" {
 
   
 }
+
+data "azurerm_virtual_machine" "webvm" {
+  name = local.webvm
+  resource_group_name = azurerm_resource_group.ntierrg.name 
+  
+}
+
+data "azurerm_public_ip" "vmpublicip" {
+  name = local.publicipname
+  resource_group_name = azurerm_resource_group.ntierrg.name
+  
+}
+
+output "azurevmid" {
+  value = data.azurerm_virtual_machine.webvm.id
+}
+
+output "url" {
+  value = "http://${data.azurerm_public_ip.vmpublicip.ip_address}"
+  
+}
