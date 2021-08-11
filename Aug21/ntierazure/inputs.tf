@@ -39,3 +39,10 @@ variable "password" {
     type = string
   
 }
+
+variable "enable_vm" {
+    description = "If set to true will create vm"
+    type = bool
+    default = false
+  
+}

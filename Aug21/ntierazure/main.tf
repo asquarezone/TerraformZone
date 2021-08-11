@@ -37,6 +37,8 @@ resource "azurerm_subnet" "subnets" {
 }
 
 resource "azurerm_public_ip" "webpublicip" {
+
+    
     name = local.publicipname
     resource_group_name = azurerm_resource_group.ntierrg.name
     location = var.location
@@ -49,6 +51,8 @@ resource "azurerm_public_ip" "webpublicip" {
 }
 
 resource "azurerm_network_interface" "webnic" {
+    
+
     name = local.webnic
     resource_group_name = azurerm_resource_group.ntierrg.name
     location = var.location
@@ -71,6 +75,7 @@ resource "azurerm_network_interface" "webnic" {
 }
 
 resource "azurerm_network_security_group" "webnsg" {
+    
     name = local.webnsg
     resource_group_name = azurerm_resource_group.ntierrg.name
     location = var.location
@@ -82,6 +87,7 @@ resource "azurerm_network_security_group" "webnsg" {
 }
 
 resource "azurerm_network_security_rule" "openssh" {
+
     resource_group_name = azurerm_resource_group.ntierrg.name
     network_security_group_name = azurerm_network_security_group.webnsg.name
     name                        = local.sshrule
@@ -122,12 +128,14 @@ resource "azurerm_network_security_rule" "openhttp" {
 
 
 resource "azurerm_network_interface_security_group_association" "webnsgassociation" {
+    
     network_interface_id = azurerm_network_interface.webnic.id
     network_security_group_id = azurerm_network_security_group.webnsg.id
   
 }
 
 resource "azurerm_linux_virtual_machine" "webvm" {
+    count = var.enable_vm ? 1: 0
     name = local.webvm
     resource_group_name = azurerm_resource_group.ntierrg.name
     location = var.location
