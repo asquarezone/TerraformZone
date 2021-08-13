@@ -169,15 +169,36 @@ resource "azurerm_linux_virtual_machine" "webvm" {
       azurerm_network_interface.webnic,
       azurerm_network_security_group.webnsg
     ]
+}
 
+resource "null_resource" "forprovisioning" {
+
+  connection {
+    type = "ssh"
+    user =  var.username
+    password = var.password
+    host = data.azurerm_public_ip.vmpublicip.ip_address
+
+  }
+
+  provisioner "file" {
+    source = "./scripts/installapache.sh"
+    destination = "/tmp/installapache.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sh /tmp/installapache.sh"
+    ]
+    
+  }
+
+  depends_on = [
+    azurerm_linux_virtual_machine.webvm
+  ]
   
 }
 
-data "azurerm_virtual_machine" "webvm" {
-  name = local.webvm
-  resource_group_name = azurerm_resource_group.ntierrg.name 
-  
-}
 
 data "azurerm_public_ip" "vmpublicip" {
   name = local.publicipname
@@ -185,9 +206,7 @@ data "azurerm_public_ip" "vmpublicip" {
   
 }
 
-output "azurevmid" {
-  value = data.azurerm_virtual_machine.webvm.id
-}
+
 
 output "url" {
   value = "http://${data.azurerm_public_ip.vmpublicip.ip_address}"
