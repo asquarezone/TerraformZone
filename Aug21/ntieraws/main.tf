@@ -115,6 +115,7 @@ resource "aws_instance" "webserver1" {
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.websg.id]
   subnet_id = aws_subnet.subnets[0].id
+  key_name = "ebcli"
 
   depends_on = [
     aws_vpc.ntiervpc,
@@ -123,6 +124,24 @@ resource "aws_instance" "webserver1" {
     aws_route_table.publicrt
 
   ]
+
+  connection {
+    type = "ssh"
+    user = "ubuntu"
+    private_key = file("./ebcli.pem")
+    host = self.public_ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "echo hello",
+      "set",
+      "pwd",
+      "sudo apt update",
+      "sudo apt install apache2 -y"
+    ]
+    
+  }
   
 }
 
