@@ -1,5 +1,5 @@
 resource "aws_vpc" "primary_vpc" {
-  cidr_block = "192.168.0.0/16"
+  cidr_block = var.vpc_cidr
   tags = {
       Name = "primary"
   }
