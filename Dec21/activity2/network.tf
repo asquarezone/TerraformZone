@@ -8,38 +8,38 @@ resource "aws_vpc" "primary_vpc" {
 
 resource "aws_subnet" "web_1" {
   vpc_id = aws_vpc.primary_vpc.id
-  availability_zone = "us-west-2a"
-  cidr_block = "192.168.0.0/24"
+  availability_zone = var.subnet_azs[0]
+  cidr_block = var.subnet_cidrs[0]
   tags = {
-      Name = "Web1"
+      Name = var.subnet_names[0]
   }
 }
 
 resource "aws_subnet" "web_2" {
   vpc_id = aws_vpc.primary_vpc.id
-  availability_zone = "us-west-2b"
-  cidr_block = "192.168.1.0/24"
+  availability_zone = var.subnet_azs[1]
+  cidr_block = var.subnet_cidrs[1]
   tags = {
-      Name = "Web2"
+      Name = var.subnet_names[1]
   }
 }
 
 
 resource "aws_subnet" "db_1" {
   vpc_id = aws_vpc.primary_vpc.id
-  availability_zone = "us-west-2a"
-  cidr_block = "192.168.2.0/24"
+  availability_zone = var.subnet_azs[2]
+  cidr_block = var.subnet_cidrs[2]
   tags = {
-      Name = "db1"
+      Name = var.subnet_names[2]
   }
 }
 
 resource "aws_subnet" "db_2" {
   vpc_id = aws_vpc.primary_vpc.id
-  availability_zone = "us-west-2b"
-  cidr_block = "192.168.3.0/24"
+  availability_zone = var.subnet_azs[3]
+  cidr_block = var.subnet_cidrs[3]
   tags = {
-      Name = "db2"
+      Name = var.subnet_names[3]
   }
 }
 
