@@ -26,3 +26,79 @@ resource "azurerm_subnet" "subnets" {
 
   
 }
+
+resource "azurerm_network_security_group" "webnsg" {
+    name                            = "webnsg"
+    resource_group_name             = local.resource_group_name
+    location                        = var.region
+    security_rule {
+        name                       = "openssh"
+        priority                   = 300
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "22"
+        destination_port_range     = "22"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+    }
+
+    security_rule {
+        name                       = "openhttp"
+        priority                   = 310
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "80"
+        destination_port_range     = "80"
+        source_address_prefix      = "*"
+        destination_address_prefix = "*"
+    }
+
+    depends_on = [
+      azurerm_resource_group.ntierrg
+    ]
+  
+}
+
+# create a public ip
+
+resource "azurerm_public_ip" "webip" {
+    name                            = "webip"
+    resource_group_name             = local.resource_group_name
+    location                        = var.region
+    sku                             = "Basic"
+    allocation_method               = "Dynamic"
+
+    depends_on = [
+      azurerm_resource_group.ntierrg
+    ]
+
+  
+}
+
+# Create a network interface
+resource "azurerm_network_interface" "web_nic" {
+    name                                = "webnic"
+    resource_group_name                 = local.resource_group_name
+    location                            = var.region
+
+    ip_configuration {
+        name                            = "webip"
+        subnet_id                       = azurerm_subnet.subnets[0].id
+        private_ip_address_allocation   = "Dynamic"
+        public_ip_address_id            = azurerm_public_ip.webip.id
+    }
+
+    depends_on = [
+        azurerm_subnet.subnets,
+        azurerm_public_ip.webip
+    ]       
+  
+}
+
+resource "azurerm_network_interface_security_group_association" "webnicnsg" {
+    network_interface_id            = azurerm_network_interface.web_nic.id
+    network_security_group_id       = azurerm_network_security_group.webnsg.id
+  
+}
