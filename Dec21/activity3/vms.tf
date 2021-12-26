@@ -18,10 +18,26 @@ resource "azurerm_linux_virtual_machine" "web1vm" {
         version   = "latest"
     }
 
+    connection {
+      type          = "ssh"
+      user          = "qtdevops"
+      password      = "motherindia@123" 
+      host          = self.public_ip_address
+    }
+
+    provisioner "remote-exec" {
+        inline = [
+          "sudo apt update",
+          "sudo apt install apache2 -y"
+        ]
+    }
+
 
     depends_on = [
       azurerm_network_interface.web_nic,
       azurerm_network_security_group.webnsg
     ]
+
+
   
 }
