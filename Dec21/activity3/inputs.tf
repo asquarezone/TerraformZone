@@ -12,3 +12,8 @@ variable "region" {
 variable "subnet_names" {
     default = ["web-1", "web-2", "db-1", "db-2"]
 }
+
+variable "build_id" {
+    default = 1
+  
+}

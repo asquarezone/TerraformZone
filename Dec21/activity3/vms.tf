@@ -18,11 +18,24 @@ resource "azurerm_linux_virtual_machine" "web1vm" {
         version   = "latest"
     }
 
+    depends_on = [
+      azurerm_network_interface.web_nic,
+      azurerm_network_security_group.webnsg
+    ]
+  
+}
+
+resource "null_resource" "deployapp" {
+
+    triggers = {
+        build_id = var.build_id
+    }
+
     connection {
       type          = "ssh"
       user          = "qtdevops"
       password      = "motherindia@123" 
-      host          = self.public_ip_address
+      host          = azurerm_linux_virtual_machine.web1vm.public_ip_address
     }
 
     provisioner "remote-exec" {
@@ -32,12 +45,8 @@ resource "azurerm_linux_virtual_machine" "web1vm" {
         ]
     }
 
-
     depends_on = [
-      azurerm_network_interface.web_nic,
-      azurerm_network_security_group.webnsg
+      azurerm_linux_virtual_machine.web1vm
     ]
-
-
   
 }
