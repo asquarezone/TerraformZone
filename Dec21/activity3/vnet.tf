@@ -19,6 +19,7 @@ resource "azurerm_subnet" "subnets" {
     address_prefixes        = [cidrsubnet(var.vnet_range,8,count.index)]
     name                    = var.subnet_names[count.index]
     count                   = length(var.subnet_names)
+    service_endpoints       = var.subnet_names[count.index] == "db-1"? ["Microsoft.sql"]: []
 
     depends_on = [
       azurerm_virtual_network.ntier
