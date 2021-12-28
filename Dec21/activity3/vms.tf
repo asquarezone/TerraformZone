@@ -38,10 +38,16 @@ resource "null_resource" "deployapp" {
       host          = azurerm_linux_virtual_machine.web1vm.public_ip_address
     }
 
+    provisioner "file" {
+      source        = "deployspc.sh"
+      destination   = "/tmp/deploy.sh" 
+      
+    }
+
     provisioner "remote-exec" {
         inline = [
-          "sudo apt update",
-          "sudo apt install apache2 -y"
+          "chmod +x /tmp/deploy.sh",
+          "/tmp/deploy.sh",
         ]
     }
 

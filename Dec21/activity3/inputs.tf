@@ -17,3 +17,8 @@ variable "build_id" {
     default = 1
   
 }
+
+variable "create_db" {
+    default = "yes"
+
+}
