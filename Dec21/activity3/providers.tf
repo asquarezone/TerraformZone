@@ -15,3 +15,12 @@ provider "azurerm" {
 provider "null" {
   
 }
+
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "terraformstate"
+    storage_account_name = "qttfstatemanagement"
+    container_name       = "tfstates"
+    key                  = "activity2.terraform.tfstate"
+  }
+}
