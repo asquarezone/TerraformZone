@@ -8,6 +8,7 @@ resource "aws_db_subnet_group" "ntier_db" {
 # db instance
 
 resource "aws_db_instance" "db" {
+    count                       = terraform.workspace == "UAT"? 1 : 0
     allocated_storage           = 20
     apply_immediately           = true
     auto_minor_version_upgrade  = false
