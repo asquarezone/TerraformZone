@@ -1,6 +1,6 @@
 # Db subnet group
 resource "aws_db_subnet_group" "ntier_db" {
-    name        = "ntier"
+    name        = format("ntier-%s", lower(terraform.workspace))
     subnet_ids  = [aws_subnet.subnets[2].id, aws_subnet.subnets[3].id]
   
 }

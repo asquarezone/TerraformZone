@@ -3,7 +3,7 @@ output "web1_publicip" {
 }
 
 output "db_endpoint" {
-    value = aws_db_instance.db[0].endpoint
+    value = terraform.workspace == "UAT"?aws_db_instance.db[0].endpoint:""
 }
 output "vpc_id" {
     value = aws_vpc.primary_vpc.id
