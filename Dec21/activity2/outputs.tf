@@ -1,9 +1,9 @@
 output "web1_publicip" {
-    value = aws_instance.web_instance_1.public_ip
+    value = aws_instance.web_instance_1[0].public_ip
 }
 
 output "db_endpoint" {
-    value = aws_db_instance.db.endpoint
+    value = aws_db_instance.db[0].endpoint
 }
 output "vpc_id" {
     value = aws_vpc.primary_vpc.id
@@ -27,8 +27,8 @@ output "db_security_group_id" {
     value = aws_security_group.dbsg.id
 }
 output "web_url" {
-    value = format("http://%s", aws_instance.web_instance_1.public_ip )
+    value = format("http://%s", aws_instance.web_instance_1[0].public_ip )
 }
 output "ssh_command" {
-    value = format("ssh -i %s.pem ubuntu@%s","fortf", aws_instance.web_instance_1.public_ip)
+    value = format("ssh -i %s.pem ubuntu@%s","fortf", aws_instance.web_instance_1[0].public_ip)
 }
