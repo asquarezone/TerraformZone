@@ -55,7 +55,7 @@ resource "null_resource" "deployapp" {
     # playbook to run on the newly create node
 
     provisioner "local-exec" {
-        command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i '${aws_instance.web_instance_1.public_ip}' --private-key './fortf.pem' sample.yaml"
+        command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i '${aws_instance.web_instance_1.public_ip},' --private-key './fortf.pem' sample.yaml"
       
     }
 
