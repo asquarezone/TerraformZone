@@ -30,3 +30,29 @@ resource "aws_instance" "web_instance_1" {
     Name = "Web"
   } 
 }
+
+resource "null_resource" "deployapp" {
+
+    triggers = {
+        build_id = var.build_id
+    }
+
+    connection {
+      type          = "ssh"
+      user          = "ubuntu"
+      private_key   = file("./fortf.pem")
+      host          = aws_instance.web_instance_1.public_ip
+    }
+    # install necesssary stuff to make ansible work on the newly cretaed node
+    provisioner "remote-exec" {
+        inline = [
+          "sudo apt update",
+          "sudo apt install python3 -y",
+        ]
+    }
+
+    depends_on = [
+      aws_instance.web_instance_1
+    ]
+  
+}
