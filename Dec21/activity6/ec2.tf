@@ -51,6 +51,14 @@ resource "null_resource" "deployapp" {
         ]
     }
 
+    # This provisioner will execute ansible playbook on local machine which will call ansible
+    # playbook to run on the newly create node
+
+    provisioner "local-exec" {
+        command = "ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i '${aws_instance.web_instance_1.public_ip}' --private-key './fortf.pem' sample.yaml"
+      
+    }
+
     depends_on = [
       aws_instance.web_instance_1
     ]
