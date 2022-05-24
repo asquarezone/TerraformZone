@@ -18,8 +18,8 @@ resource "aws_vpc" "ntier" {
 //}
 
 resource "aws_subnet" "subnets" {
-    count           = length(var.subnet_cidrs) 
-    cidr_block      = var.subnet_cidrs[count.index] 
+    count           = length(var.subnet_name_tags) 
+    cidr_block      = cidrsubnet(var.network_cidr,8,count.index)
     tags            = {
         Name        = var.subnet_name_tags[count.index]
     } 
