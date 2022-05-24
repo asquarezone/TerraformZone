@@ -23,7 +23,7 @@ resource "aws_subnet" "subnets" {
     tags            = {
         Name        = var.subnet_name_tags[count.index]
     } 
-    availability_zone = var.subnet_azs[count.index]
+    availability_zone = format("${var.region}%s", count.index%2==0?"a":"b")
     vpc_id          = aws_vpc.ntier.id 
 }
 

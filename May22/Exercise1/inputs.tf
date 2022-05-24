@@ -9,13 +9,6 @@ variable "network_cidr" {
   
 }
 
-
-variable "subnet_azs" {
-    type    = list(string)
-    default = [ "ap-southeast-1a", "ap-southeast-1b", "ap-southeast-1a", "ap-southeast-1b", "ap-southeast-1a", "ap-southeast-1b" ]
-  
-}
-
 variable "subnet_name_tags" {
     type    = list(string)
     default = [ "web1", "web2", "app1", "app2", "db1", "db2"  ]
