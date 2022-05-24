@@ -18,7 +18,7 @@ resource "aws_vpc" "ntier" {
 //}
 
 resource "aws_subnet" "subnets" {
-    count           = 6 
+    count           = length(var.subnet_cidrs) 
     cidr_block      = var.subnet_cidrs[count.index] 
     tags            = {
         Name        = var.subnet_name_tags[count.index]
