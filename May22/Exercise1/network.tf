@@ -41,3 +41,31 @@ resource "aws_s3_bucket" "my_bucket" {
   
 }
 
+resource "aws_security_group" "websg" {
+    vpc_id              = aws_vpc.ntier.id
+    description         = "Created by terraform"
+    ingress {
+        from_port       = 22
+        to_port         = 22
+        protocol        = "tcp"
+        cidr_blocks     = ["0.0.0.0/0"]
+    } 
+    ingress {
+        from_port       = 80
+        to_port         = 80
+        protocol        = "tcp"
+        cidr_blocks     = ["0.0.0.0/0"]
+    }
+    egress {
+        from_port       = 0
+        to_port         = 0
+        protocol        = "-1"
+        cidr_blocks      = ["0.0.0.0/0"]
+        ipv6_cidr_blocks = ["::/0"]
+    }
+    tags = {
+        Name            = "Web Security"
+    } 
+  
+}
+
