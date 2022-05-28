@@ -20,3 +20,8 @@ variable "bucket_name" {
     default = "qts3khajatf3example1"
   
 }
+
+variable "public_subnets" {
+    type = list(string)
+    default = [ "web1", "web2" ]
+}
