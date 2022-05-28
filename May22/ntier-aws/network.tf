@@ -49,7 +49,7 @@ resource "aws_security_group" "websg" {
         from_port       = local.all_ports
         to_port         = local.all_ports
         protocol        = local.any_protocol
-        cidr_blocks      = [var.network_cidr]
+        cidr_blocks      = [local.any_where]
         ipv6_cidr_blocks = [local.any_where_ip6]
     }
     tags = {
@@ -77,7 +77,7 @@ resource "aws_security_group" "appsg" {
         from_port       = local.all_ports
         to_port         = local.all_ports
         protocol        = local.any_protocol
-        cidr_blocks      = [var.network_cidr]
+        cidr_blocks      = [local.any_where]
         ipv6_cidr_blocks = [local.any_where_ip6]
     }
     tags = {
