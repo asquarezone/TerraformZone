@@ -10,4 +10,5 @@ locals {
     any_where_ip6       = "::/0"
     tcp                 = "tcp"
     default_description = "Created by Terraform"
+    db_subnet_groupname = "ntier-db-subnet-group"
 }
