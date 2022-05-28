@@ -86,3 +86,22 @@ resource "aws_security_group" "appsg" {
   
 }
 
+resource "aws_route_table" "publicrt" {
+    vpc_id          =  aws_vpc.ntier.id
+    route {
+        cidr_block  = local.any_where
+        gateway_id  = aws_internet_gateway.ntier_igw.id
+    }
+    tags            = {
+        Name        = "Public RT"
+    } 
+}
+
+resource "aws_route_table" "privatert" {
+    vpc_id          =  aws_vpc.ntier.id
+    
+    tags            = {
+        Name        = "Private RT"
+    } 
+}
+
