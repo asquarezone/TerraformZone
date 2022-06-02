@@ -5,5 +5,10 @@ variable "network_cidr" {
 
 variable "subnet_names" {
     type    = list(string)
-    default = [ "web1", "web2", "app1", "app2", "db1", "db2"  ]
+    default = [ "web", "app", "db"  ]
+}
+
+variable "private_endpoint_subnet" {
+    type    = string
+    default = "db"
 }
