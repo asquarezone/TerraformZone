@@ -23,3 +23,55 @@ resource "azurerm_subnet" "subnets" {
     address_prefixes        = [cidrsubnet(var.network_cidr[0],8,count.index)]
   
 }
+
+
+
+resource "azurerm_network_security_group" "app_nsg" {
+    name                            = "appnsg"
+    resource_group_name             = azurerm_resource_group.infra_rg.name
+    location                        = azurerm_resource_group.infra_rg.location
+
+    security_rule  {
+        name                        = "portswithin"
+        priority                    = 300
+        direction                   = "Inbound"
+        access                      = "Allow"
+        protocol                    = "Tcp"
+        source_port_range           = "*"
+        destination_port_range      = "*"
+        source_address_prefix       = var.network_cidr[0]
+        destination_address_prefix  = "*"
+    }
+  
+}
+
+resource "azurerm_network_security_group" "web_nsg" {
+    name                            = "webnsg"
+    resource_group_name             = azurerm_resource_group.infra_rg.name
+    location                        = azurerm_resource_group.infra_rg.location
+
+    security_rule  {
+        name                        = "openssh"
+        priority                    = 300
+        direction                   = "Inbound"
+        access                      = "Allow"
+        protocol                    = "Tcp"
+        source_port_range           = "*"
+        destination_port_range      = "22"
+        source_address_prefix       = "*"
+        destination_address_prefix  = "*"
+    }
+
+    security_rule  {
+        name                        = "openhttp"
+        priority                    = 310
+        direction                   = "Inbound"
+        access                      = "Allow"
+        protocol                    = "Tcp"
+        source_port_range           = "*"
+        destination_port_range      = "80"
+        source_address_prefix       = "*"
+        destination_address_prefix  = "*"
+    }
+  
+}
