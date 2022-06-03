@@ -12,3 +12,28 @@ variable "private_endpoint_subnet" {
     type    = string
     default = "db"
 }
+
+variable "appsubnet" {
+    type = string
+    default = "app"
+}
+
+variable "websubnet" {
+    type = string
+    default = "web"
+}
+
+variable "servername" {
+    type = string
+    default = "qt1dbservertf1"
+}
+
+variable "dbname" {
+    type = string
+    default = "qtdbfromtf1"
+}
+
+variable "vmsize" {
+    type = string
+    default = "Standard_B1s"
+}
