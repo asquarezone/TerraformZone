@@ -60,12 +60,19 @@ resource "azurerm_linux_virtual_machine" "webserver" {
         caching                     = "ReadWrite"
         storage_account_type        = "Standard_LRS"
   }
+  
+}
 
+resource "null_resource" "forprovisioning" {
+
+    triggers = {
+        "execute" = var.increment_execute
+    }
   connection {
       type  = "ssh"
       user = var.username
       password = var.password
-      host = self.public_ip_address
+      host = azurerm_linux_virtual_machine.webserver.public_ip_address
   }
 
  
@@ -73,10 +80,13 @@ resource "azurerm_linux_virtual_machine" "webserver" {
       inline = [
         "#!/bin/bash",
         "sudo apt update",
-        "sudo apt install apache2 -y"
+        "sudo apt install software-properties-common -y",
+        "sudo add-apt-repository --yes --update ppa:ansible/ansible",
+        "sudo apt install ansible -y",
+        "ansible --version",
+        "ansible-playbook --version"
       ]
     
   }
-  
 }
 
