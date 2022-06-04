@@ -50,20 +50,8 @@ variable "password" {
   
 }
 
-variable "createdb" {
-    type = bool
-    default = true
-}
-
-variable "createapp" {
-    type = bool
-    default = true
-  
-}
 
 variable "increment_execute" {
     type = string
     default = "0"
-
-  
 }
