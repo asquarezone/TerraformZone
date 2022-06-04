@@ -37,3 +37,26 @@ variable "vmsize" {
     type = string
     default = "Standard_B1s"
 }
+
+variable "username" {
+    type = string
+    default = "qtdevops"
+  
+}
+
+variable "password" {
+    type = string
+    default = "motherindia@123"
+  
+}
+
+variable "createdb" {
+    type = bool
+    default = true
+}
+
+variable "createapp" {
+    type = bool
+    default = true
+  
+}

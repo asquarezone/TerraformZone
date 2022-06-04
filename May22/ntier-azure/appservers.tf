@@ -13,6 +13,7 @@ data "azurerm_subnet" "appsubnet" {
 # network interface
 
 resource "azurerm_network_interface" "appnic" {
+    count                           = var.createapp ? 1 : 0 
     name                            = "appnic"
     resource_group_name             = azurerm_resource_group.infra_rg.name
     location                        = azurerm_resource_group.infra_rg.location
@@ -25,19 +26,21 @@ resource "azurerm_network_interface" "appnic" {
 
 
 resource "azurerm_network_interface_security_group_association" "appnsgassociation" {
-    network_interface_id            = azurerm_network_interface.appnic.id
+    count                           = var.createapp ? 1 : 0 
+    network_interface_id            = azurerm_network_interface.appnic[0].id
     network_security_group_id       = azurerm_network_security_group.app_nsg.id
 }
 
 
 resource "azurerm_linux_virtual_machine" "appserver" {
+    count                           = var.createapp ? 1 : 0 
     name                            = "appserver"
     resource_group_name             = azurerm_resource_group.infra_rg.name
     location                        = azurerm_resource_group.infra_rg.location
     size                            = var.vmsize
     admin_username                  = "qtdevops" 
     admin_password                  = "motherindia@123"
-    network_interface_ids           = [azurerm_network_interface.appnic.id] 
+    network_interface_ids           = [azurerm_network_interface.appnic[0].id] 
     disable_password_authentication = false
 
     source_image_reference {

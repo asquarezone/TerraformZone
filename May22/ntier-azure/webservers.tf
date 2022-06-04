@@ -44,8 +44,8 @@ resource "azurerm_linux_virtual_machine" "webserver" {
     resource_group_name             = azurerm_resource_group.infra_rg.name
     location                        = azurerm_resource_group.infra_rg.location
     size                            = var.vmsize
-    admin_username                  = "qtdevops" 
-    admin_password                  = "motherindia@123"
+    admin_username                  = var.username 
+    admin_password                  = var.password
     network_interface_ids           = [azurerm_network_interface.webnic.id] 
     disable_password_authentication = false
 
@@ -60,5 +60,23 @@ resource "azurerm_linux_virtual_machine" "webserver" {
         caching                     = "ReadWrite"
         storage_account_type        = "Standard_LRS"
   }
+
+  connection {
+      type  = "ssh"
+      user = var.username
+      password = var.password
+      host = self.public_ip_address
+  }
+
+ 
+  provisioner "remote-exec" {
+      inline = [
+        "#!/bin/bash",
+        "sudo apt update",
+        "sudo apt install apache2 -y"
+      ]
+    
+  }
   
 }
+
