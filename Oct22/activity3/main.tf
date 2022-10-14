@@ -20,3 +20,12 @@ resource "azurerm_storage_account" "my_store_acc" {
     } 
   
 }
+
+
+resource "azurerm_virtual_network" "my_vnet" {
+    name                        = "vnet_from_tf"
+    resource_group_name         = "fromterraform"
+    location                    = "eastus" 
+    address_space               =  [ "192.168.0.0/16" ]
+  
+}
