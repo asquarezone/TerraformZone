@@ -14,5 +14,10 @@ resource "azurerm_virtual_network" "my_vnet" {
     resource_group_name         = var.resource_group_name
     location                    = var.target_region 
     address_space               =  var.address_space
+
+    # explicit dependency to wait till resource group is created
+    depends_on = [
+      azurerm_resource_group.my_res_grp
+    ]
   
 }
