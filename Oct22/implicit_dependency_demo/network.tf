@@ -13,6 +13,10 @@ resource "aws_subnet" "first_subnet" {
     tags = {
       "Name" = "first subnet"
     }
+    
+    depends_on = [
+      aws_vpc.my_vpc
+    ]
   
 }
 
@@ -24,7 +28,9 @@ resource "aws_subnet" "second_subnet" {
       "Name" = "second subnet"
     }
 
-    
+    depends_on = [
+      aws_subnet.first_subnet
+    ]
   
 }
 
@@ -35,7 +41,10 @@ resource "aws_subnet" "third_subnet" {
     tags = {
       "Name" = "third subnet"
     }
-
+    
+    depends_on = [
+      aws_subnet.second_subnet
+    ]
    
   
 }
