@@ -9,9 +9,6 @@ variable "cidr_block" {
     default     = "192.168.0.0/16"
 }
 
-variable "subnet_cidrs" {
-    type        = list(string)
-}
 
 variable "subnet_name_tags" {
     type        = list(string)
