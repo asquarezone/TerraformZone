@@ -17,3 +17,10 @@ variable "vnet_details" {
     })
     description = "(optional) describe your variable"
 }
+
+variable "subnet_details" {
+    type = object({
+        names=list(string)
+    })
+  
+}
