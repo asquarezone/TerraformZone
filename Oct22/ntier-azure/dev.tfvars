@@ -9,5 +9,5 @@ vnet_details = {
 }
 
 subnet_details = {
-  names = [ "web", "app", "db" ]
+  names = [ "web", "app", "cache", "mgmt","ad","db" ]
 }
