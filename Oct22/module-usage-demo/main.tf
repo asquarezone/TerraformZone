@@ -1,5 +1,5 @@
 module "myvnet" {
-    source = "./modules/myvnet"
+    source = "git::https://github.com/asquarezone/ntier-azure-vnet.git"
     resourcegroup_details = {
       location = "eastus"
       name = "ntier-rg"
