@@ -11,10 +11,19 @@ data "aws_subnets" "subnetids" {
   
 }
 
+data "azurerm_resources" "allresources" {
+    type = "Microsoft.Network/virtualNetworks"
+}
+
 output "defaultvpcid" {
     value = data.aws_vpc.default.id
 }
 
 output "subnetids" {
     value = data.aws_subnets.subnetids.ids
+}
+
+output "vnets-count" {
+    value = length(data.azurerm_resources.allresources.resources)
+  
 }
