@@ -7,8 +7,8 @@ output "vnetname" {
   
 }
 
-output "subnets" {
-    value = azurerm_subnet.subnets
+output "subnetcount" {
+    value = length(azurerm_subnet.subnets)
   
 }
 
