@@ -21,3 +21,9 @@ variable "private-cidrs" {
 variable "public-cidrs" {
     type = list(string)
 }
+
+variable "ami-id" {
+    type = string
+    description = "Ami id of ubuntu 22.04"
+    default = "ami-017fecd1353bcc96e"
+}
