@@ -27,3 +27,10 @@ variable "ami-id" {
     description = "Ami id of ubuntu 22.04"
     default = "ami-017fecd1353bcc96e"
 }
+
+variable "web-trigger" {
+    type = string
+    description = "running number for trigger"
+    default = "1.0"
+  
+}
