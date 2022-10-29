@@ -27,7 +27,8 @@ resource "aws_instance" "webec2" {
 
       inline = [
         "sudo apt update",
-        "sudo apt install nginx -y"
+        "sudo apt install nginx -y",
+        "sudo apt install tree -y"
       ]
       
     }
