@@ -13,5 +13,23 @@ resource "aws_instance" "webec2" {
       module.vpc,
       aws_security_group.web_sg
     ]
+
+
+
+    provisioner "remote-exec" {
+
+      connection {
+        type = "ssh"
+        user = "ubuntu"
+        private_key = file("~/.ssh/id_rsa")
+        host = aws_instance.webec2.public_ip 
+      }
+
+      inline = [
+        "sudo apt update",
+        "sudo apt install nginx -y"
+      ]
+      
+    }
   
 }
