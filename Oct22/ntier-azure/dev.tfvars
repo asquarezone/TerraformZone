@@ -11,3 +11,5 @@ vnet_details = {
 subnet_details = {
   names = [ "web", "app", "cache", "mgmt","ad","db" ]
 }
+
+runningversion = "1.0"

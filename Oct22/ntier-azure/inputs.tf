@@ -24,3 +24,9 @@ variable "subnet_details" {
     })
   
 }
+
+variable "runningversion" {
+    type = string
+    default = "1.0"
+  
+}
