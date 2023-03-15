@@ -66,6 +66,5 @@ resource "aws_security_group" "websg" {
     tags = {
         Name            = "Web Security"
     } 
-  
 }
 

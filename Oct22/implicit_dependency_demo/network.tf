@@ -29,7 +29,7 @@ resource "aws_subnet" "second_subnet" {
     }
 
     depends_on = [
-      aws_subnet.first_subnet
+      aws_vpc.my_vpc
     ]
   
 }
@@ -43,8 +43,6 @@ resource "aws_subnet" "third_subnet" {
     }
     
     depends_on = [
-      aws_subnet.second_subnet
+      aws_vpc.my_vpc
     ]
-   
-  
 }
