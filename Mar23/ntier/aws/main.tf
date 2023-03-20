@@ -9,7 +9,7 @@ resource "aws_vpc" "ntier" {
 }
 
 resource "aws_subnet" "subnets" {
-  count             = 4
+  count             = length(var.ntier-subnet-cidrs)
   cidr_block        = var.ntier-subnet-cidrs[count.index]
   availability_zone = "${var.region}${var.ntier-subnet-azs[count.index]}"
   vpc_id            = aws_vpc.ntier.id #implicit dependency
