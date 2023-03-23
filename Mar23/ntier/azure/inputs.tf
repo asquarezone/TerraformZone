@@ -9,3 +9,9 @@ variable "vnet-range" {
   default     = ["192.168.0.0/16"]
   description = "cidr range of vnet"
 }
+
+variable "subnet_names" {
+  type    = list(string)
+  default = ["web", "app", "db"]
+
+}
