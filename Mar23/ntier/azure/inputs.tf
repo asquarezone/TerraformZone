@@ -20,9 +20,11 @@ variable "names" {
   type = object({
     resource_group = string
     vnet           = string
+    sql_server     = string
   })
   default = {
     resource_group = "ntier-rg"
     vnet           = "ntier-vnet"
+    sql_server     = "qtntierdb-dev"
   }
 }
