@@ -11,7 +11,8 @@ resource "azurerm_mssql_server" "sql_server" {
   }
   depends_on = [
     azurerm_resource_group.ntierrg,
-    azurerm_virtual_network.ntiervnet
+    azurerm_virtual_network.ntiervnet,
+    azurerm_subnet.subnets
   ]
 
 }

@@ -28,3 +28,9 @@ variable "names" {
     sql_server     = "qtntierdb-dev"
   }
 }
+
+variable "appsubnet_index" {
+  type    = number
+  default = 1
+
+}
