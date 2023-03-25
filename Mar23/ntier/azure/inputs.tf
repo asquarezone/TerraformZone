@@ -29,8 +29,60 @@ variable "names" {
   }
 }
 
-variable "appsubnet_index" {
-  type    = number
-  default = 1
+
+variable "server_info" {
+  type = object({
+    version  = string
+    username = string
+    password = string
+  })
+  default = {
+    password = "ThisPasswordisnotgreat@1"
+    username = "devops"
+    version  = "12.0"
+  }
+
+}
+
+variable "database_info" {
+  type = object({
+    name = string
+    sku  = string
+  })
+  default = {
+    name = "employees"
+    sku  = "Basic"
+  }
+
+}
+
+variable "network_interface_info" {
+  type = object({
+    name                 = string
+    ip_name              = string
+    subnet_index         = number
+    ip_allocation_method = string
+  })
+  default = {
+    ip_allocation_method = "Dynamic"
+    ip_name              = "appserverip"
+    name                 = "appservernic"
+    subnet_index         = 1
+  }
+}
+
+variable "vm_info" {
+  type = object({
+    name     = string
+    username = string
+    password = string
+    size     = string
+  })
+  default = {
+    name     = "appserver1"
+    password = "ThisPasswordisnotgreat@1"
+    size     = "Standard_B1s"
+    username = "qtdevops"
+  }
 
 }

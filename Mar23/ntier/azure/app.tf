@@ -1,12 +1,12 @@
 resource "azurerm_network_interface" "appserver_nic" {
-  name                = "appservernic"
+  name                = var.network_interface_info.name
   location            = azurerm_resource_group.ntierrg.location
   resource_group_name = azurerm_resource_group.ntierrg.name
 
   ip_configuration {
-    name      = "appserverip"
-    subnet_id = azurerm_subnet.subnets[var.appsubnet_index].id
-    private_ip_address_allocation = "Dynamic"
+    name                          = var.network_interface_info.ip_name
+    subnet_id                     = azurerm_subnet.subnets[var.network_interface_info.subnet_index].id
+    private_ip_address_allocation = var.network_interface_info.ip_allocation_method
   }
 
   depends_on = [
@@ -16,11 +16,11 @@ resource "azurerm_network_interface" "appserver_nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "appserver" {
-  name                = "appserver1"
-  location            = azurerm_resource_group.ntierrg.location
-  resource_group_name = azurerm_resource_group.ntierrg.name
-  admin_username      = "qtdevops"
-  admin_password      = "ThisPasswordisnotgreat@1"
+  name                            = var.vm_info.name
+  location                        = azurerm_resource_group.ntierrg.location
+  resource_group_name             = azurerm_resource_group.ntierrg.name
+  admin_username                  = var.vm_info.username
+  admin_password                  = var.vm_info.password
   disable_password_authentication = false
   source_image_reference {
     publisher = "Canonical"
@@ -28,7 +28,7 @@ resource "azurerm_linux_virtual_machine" "appserver" {
     sku       = "20_04-lts-gen2"
     version   = "latest"
   }
-  size = "Standard_B1s"
+  size = var.vm_info.size
   network_interface_ids = [
     azurerm_network_interface.appserver_nic.id
   ]
