@@ -9,5 +9,24 @@ resource "azurerm_mssql_server" "sql_server" {
     Env       = "Dev"
     CreatedBy = "Terraform"
   }
+  depends_on = [
+    azurerm_resource_group.ntierrg,
+    azurerm_virtual_network.ntiervnet
+  ]
+
+}
+
+resource "azurerm_mssql_database" "sql_emp_db" {
+  name      = "employees"
+  server_id = azurerm_mssql_server.sql_server.id
+  sku_name  = "Basic"
+  tags = {
+    Env       = "Dev"
+    CreatedBy = "Terraform"
+  }
+
+  depends_on = [
+    azurerm_mssql_server.sql_server
+  ]
 
 }
