@@ -22,3 +22,10 @@ resource "aws_subnet" "subnets" {
 
 }
 
+
+resource "aws_internet_gateway" "ntier_igw" {
+  vpc_id = aws_vpc.ntier.id
+  tags = {
+    Name = "ntier-igw"
+  }
+}
