@@ -12,7 +12,8 @@ variable "ntier_vpc_info" {
     subnet_names    = list(string),
     private_subnets = list(string),
     public_subnets  = list(string),
-    db_subnets      = list(string)
+    db_subnets      = list(string),
+    web_ec2_subnet  = string
   })
   default = {
     subnet_azs      = ["a", "b", "a", "b"]
@@ -21,6 +22,7 @@ variable "ntier_vpc_info" {
     public_subnets  = []
     private_subnets = ["app1", "app2", "db1", "db2"]
     db_subnets      = ["db1", "db2"]
+    web_ec2_subnet  = ""
   }
 
 }
