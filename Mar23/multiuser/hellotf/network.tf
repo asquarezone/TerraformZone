@@ -1,7 +1,8 @@
 resource "aws_vpc" "ntier" {
-  cidr_block = "192.168.0.0/16"
+  cidr_block = var.cidr-block
   tags = {
-    Name = "ntier"
+    Name = "ntier-${terraform.workspace}"
+    Env = terraform.workspace
   }
 
 }
