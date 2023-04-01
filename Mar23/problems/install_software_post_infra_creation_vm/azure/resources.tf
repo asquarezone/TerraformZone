@@ -51,6 +51,14 @@ resource "azurerm_linux_virtual_machine" "apache" {
     sku       = "22_04-lts-gen2"
     version   = "latest"
   }
-  custom_data = filebase64("apache.sh")
+  connection {
+    type        = "ssh"
+    user        = self.admin_username
+    private_key = file("~/.ssh/id_rsa")
+    host        = self.public_ip_address
+  }
+  provisioner "remote-exec" {
+    inline = ["sudo apt update", "sudo apt install apache2 -y"]
+  }
 
 }
