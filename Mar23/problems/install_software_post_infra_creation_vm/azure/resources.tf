@@ -51,14 +51,23 @@ resource "azurerm_linux_virtual_machine" "apache" {
     sku       = "22_04-lts-gen2"
     version   = "latest"
   }
+
+
+}
+
+resource "null_resource" "executor" {
+  triggers = {
+    rollout_version = var.rollout_version
+  }
+
   connection {
     type        = "ssh"
-    user        = self.admin_username
+    user        = azurerm_linux_virtual_machine.apache.admin_username
     private_key = file("~/.ssh/id_rsa")
-    host        = self.public_ip_address
+    host        = azurerm_linux_virtual_machine.apache.public_ip_address
   }
   provisioner "remote-exec" {
-    inline = ["sudo apt update", "sudo apt install apache2 -y"]
+    inline = ["sudo apt update", "sudo apt install apache2 -y", "sudo apt install openjdk-11-jdk -y"]
   }
 
 }
