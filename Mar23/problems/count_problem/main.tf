@@ -1,5 +1,5 @@
 resource "local_file" "foo" {
-  count    = length(var.filenames)
+  for_each = toset(var.filenames)
   content  = "hello"
-  filename = var.filenames[count.index]
+  filename = each.key
 }
