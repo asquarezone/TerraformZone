@@ -7,8 +7,16 @@ resource "aws_instance" "apache" {
   user_data                   = file("apache.sh")
   vpc_security_group_ids      = ["sg-05adaf452b268c335"]
 
+  
+
+}
+
+resource "null_resource" "executor" {
+  triggers = {
+    rollout_version = var.rollout_version
+  }
   connection {
-    host        = self.public_ip
+    host        = aws_instance.apache.public_ip
     user        = "ubuntu"
     private_key = file("~/.ssh/id_rsa")
     type        = "ssh"
