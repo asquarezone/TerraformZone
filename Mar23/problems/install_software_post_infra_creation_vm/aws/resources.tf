@@ -7,4 +7,15 @@ resource "aws_instance" "apache" {
   user_data                   = file("apache.sh")
   vpc_security_group_ids      = ["sg-05adaf452b268c335"]
 
+  connection {
+    host        = self.public_ip
+    user        = "ubuntu"
+    private_key = file("~/.ssh/id_rsa")
+    type        = "ssh"
+
+  }
+  provisioner "remote-exec" {
+    inline = ["sudo apt update", "sudo apt install apache2 -y"]
+  }
+
 }
