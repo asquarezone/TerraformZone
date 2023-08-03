@@ -17,7 +17,4 @@ variable "subnet_names" {
 
 }
 
-variable "subnet_count" {
-  type    = number
-  default = 6
-}
+
