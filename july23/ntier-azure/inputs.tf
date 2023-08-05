@@ -23,3 +23,37 @@ variable "subnet_names" {
   description = "these are subnet names"
 }
 
+variable "web_nsg_config" {
+  type = object({
+    name = string
+    rules = list(object({
+      name                       = string
+      protocol                   = string
+      source_address_prefix      = string
+      source_port_range          = string
+      destination_port_range     = string
+      direction                  = string
+      priority                   = string
+      access                     = string
+      destination_address_prefix = string
+    }))
+  })
+}
+
+variable "app_nsg_config" {
+  type = object({
+    name = string
+    rules = list(object({
+      name                       = string
+      protocol                   = string
+      source_address_prefix      = string
+      source_port_range          = string
+      destination_port_range     = string
+      direction                  = string
+      priority                   = string
+      access                     = string
+      destination_address_prefix = string
+    }))
+  })
+}
+
