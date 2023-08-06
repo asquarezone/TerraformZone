@@ -1,3 +1,4 @@
 locals {
-  name = "ntier"
+  name     = "ntier"
+  anywhere = "0.0.0.0/0"
 }
