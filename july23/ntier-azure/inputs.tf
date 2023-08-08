@@ -57,3 +57,15 @@ variable "app_nsg_config" {
   })
 }
 
+variable "db_info" {
+  type = object({
+    db_name        = string
+    server_name    = string
+    server_version = string
+    user_name      = string
+    password       = string
+    sku_name       = string
+    max_size_gb    = number
+  })
+}
+

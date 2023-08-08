@@ -66,3 +66,13 @@ app_nsg_config = {
     }
   ]
 }
+
+db_info = {
+  db_name        = "employee"
+  server_name    = "qtazsqlserverfromtf"
+  server_version = "12.0"
+  user_name      = "Dell"
+  password       = "Dell@123@india"
+  sku_name       = "Basic"
+  max_size_gb    = 2
+}
