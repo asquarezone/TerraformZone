@@ -8,6 +8,16 @@ variable "subnet_names" {
   description = "These are subnet names"
 }
 
+variable "subnet_azs" {
+  type        = list(string)
+  description = "These are azs"
+}
+
+variable "db_subnet_names" {
+  type        = list(string)
+  description = "these are database subnet names"
+}
+
 variable "web_sg_config" {
   type = object({
     name        = string

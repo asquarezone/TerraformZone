@@ -1,5 +1,7 @@
 vpc_network_cidr = "10.10.0.0/16"
 subnet_names     = ["web1", "web2", "app1", "app2", "db1", "db2"]
+db_subnet_names  = ["db1", "db2"]
+subnet_azs       = ["us-west-1b", "us-west-1c", "us-west-1b", "us-west-1c", "us-west-1b", "us-west-1c"]
 web_sg_config = {
   name        = "websg"
   description = "this is websecurity group"
