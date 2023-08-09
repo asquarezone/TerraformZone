@@ -63,13 +63,26 @@ variable "db_sg_config" {
   })
   description = "this is db security group config"
 }
-
-
 variable "public_key_path" {
   type    = string
   default = "~/.ssh/id_rsa.pub"
-
 }
 
+variable "ubuntu_ami_id" {
+  type    = string
+  default = "ami-0f8e81a3da6e2510a"
+}
+
+variable "app_ec2_size" {
+  type    = string
+  default = "t2.micro"
+}
+
+
+variable "app_subnet_name" {
+  type    = string
+  default = "app1"
+
+}
 
 
