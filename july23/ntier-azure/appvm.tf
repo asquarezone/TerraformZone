@@ -39,3 +39,28 @@ resource "azurerm_network_interface_security_group_association" "appnsg" {
     azurerm_network_security_group.appnsg
   ]
 }
+
+
+resource "azurerm_linux_virtual_machine" "app" {
+  name                = "app"
+  resource_group_name = azurerm_resource_group.ntier.name
+  location            = azurerm_resource_group.ntier.location
+  size                = var.appvm_config.size
+  admin_username      = var.appvm_config.username
+  admin_ssh_key {
+    username   = var.appvm_config.username
+    public_key = file(var.appvm_config.keypath)
+  }
+  network_interface_ids = [azurerm_network_interface.app.id]
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+  source_image_reference {
+    publisher = var.appvm_config.publisher
+    offer     = var.appvm_config.offer
+    sku       = var.appvm_config.sku
+    version   = var.appvm_config.version
+
+  }
+}
