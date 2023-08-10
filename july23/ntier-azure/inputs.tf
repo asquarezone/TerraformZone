@@ -69,3 +69,14 @@ variable "db_info" {
   })
 }
 
+
+variable "appvm_config" {
+  type = object({
+    subnet_name = string
+  })
+  default = {
+    subnet_name = "app"
+  }
+
+}
+
