@@ -76,3 +76,14 @@ db_info = {
   sku_name       = "Basic"
   max_size_gb    = 2
 }
+
+appvm_config = {
+  subnet_name = "app"
+  size        = "Standard_B1s"
+  username    = "Dell"
+  keypath     = "~/.ssh/id_rsa.pub"
+  publisher   = "Canonical"
+  offer       = "0001-com-ubuntu-server-jammy"
+  sku         = "22_04-lts-gen2"
+  version     = "latest"
+}
