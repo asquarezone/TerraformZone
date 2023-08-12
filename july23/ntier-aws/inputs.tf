@@ -68,6 +68,12 @@ variable "public_key_path" {
   default = "~/.ssh/id_rsa.pub"
 }
 
+variable "private_key_path" {
+  type    = string
+  default = "~/.ssh/id_rsa"
+
+}
+
 variable "ubuntu_ami_id" {
   type    = string
   default = "ami-0f8e81a3da6e2510a"

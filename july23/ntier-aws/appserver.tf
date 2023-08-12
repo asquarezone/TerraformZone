@@ -29,6 +29,23 @@ resource "aws_instance" "appserver" {
     Name = "appserver"
   }
 
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file(var.private_key_path)
+    host        = self.public_ip
+  }
+
+  provisioner "file" {
+    source      = "./installjenkins.sh"
+    destination = "/tmp/installjenkins.sh"
+
+  }
+
+  provisioner "remote-exec" {
+    script = "/tmp/installjenkins.sh"
+  }
+
   depends_on = [
     aws_subnet.subnets
   ]
