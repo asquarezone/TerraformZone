@@ -82,6 +82,7 @@ appvm_config = {
   size        = "Standard_B1s"
   username    = "Dell"
   keypath     = "~/.ssh/id_rsa.pub"
+  private_key_path = "~/.ssh/id_rsa"
   publisher   = "Canonical"
   offer       = "0001-com-ubuntu-server-jammy"
   sku         = "22_04-lts-gen2"
