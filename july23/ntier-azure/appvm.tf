@@ -64,3 +64,27 @@ resource "azurerm_linux_virtual_machine" "app" {
 
   }
 }
+
+resource "null_resource" "script_executor" {
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt update",
+      "sudo apt install openjdk-11-jdk -y",
+      "cd /tmp && wget https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar",
+      "java -jar spring-petclinic-2.4.2.jar &",
+      "sleep 20s"
+    ]
+    connection {
+      type        = "ssh"
+      user        = var.appvm_config.username
+      private_key = file(var.appvm_config.private_key_path)
+      host        = azurerm_linux_virtual_machine.app.public_ip_address
+    }
+  }
+  triggers = {
+    app_script_version = var.app_script_version
+  }
+
+  depends_on = [azurerm_linux_virtual_machine.app]
+}

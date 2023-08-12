@@ -72,25 +72,32 @@ variable "db_info" {
 
 variable "appvm_config" {
   type = object({
-    subnet_name = string
-    size        = string
-    username    = string
-    keypath     = string
-    publisher   = string
-    offer       = string
-    sku         = string
-    version     = string
+    subnet_name      = string
+    size             = string
+    username         = string
+    keypath          = string
+    private_key_path = string
+    publisher        = string
+    offer            = string
+    sku              = string
+    version          = string
   })
   default = {
-    subnet_name = "app"
-    size        = "Standard_B1s"
-    username    = "Dell"
-    keypath     = "~/.ssh/id_rsa.pub"
-    publisher   = "Canonical"
-    offer       = "0001-com-ubuntu-server-jammy"
-    sku         = "22_04-lts-gen2"
-    version     = "latest"
+    subnet_name      = "app"
+    size             = "Standard_B1s"
+    username         = "Dell"
+    keypath          = "~/.ssh/id_rsa.pub"
+    private_key_path = "~/.ssh/id_rsa"
+    publisher        = "Canonical"
+    offer            = "0001-com-ubuntu-server-jammy"
+    sku              = "22_04-lts-gen2"
+    version          = "latest"
   }
 
+}
+
+variable "app_script_version" {
+  type    = string
+  default = "0"
 }
 
