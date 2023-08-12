@@ -29,24 +29,33 @@ resource "aws_instance" "appserver" {
     Name = "appserver"
   }
 
-  connection {
-    type        = "ssh"
-    user        = "ubuntu"
-    private_key = file(var.private_key_path)
-    host        = self.public_ip
-  }
+  depends_on = [
+    aws_subnet.subnets,
+    aws_route.igwroute
+  ]
+}
 
-  provisioner "file" {
-    source      = "./installjenkins.sh"
-    destination = "/tmp/installjenkins.sh"
 
-  }
+resource "null_resource" "script_executor" {
 
   provisioner "remote-exec" {
-    script = "/tmp/installjenkins.sh"
+    inline = [
+     "sudo apt update",
+     "sudo apt install openjdk-11-jdk -y",
+     "cd /tmp && wget https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar",
+     "java -jar spring-petclinic-2.4.2.jar &",
+     "sleep 20s"
+    ]
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"
+      private_key = file(var.private_key_path)
+      host        = aws_instance.appserver.public_ip
+    }
+  }
+  triggers = {
+    app_script_version = var.app_script_version
   }
 
-  depends_on = [
-    aws_subnet.subnets
-  ]
+  depends_on = [aws_instance.appserver]
 }

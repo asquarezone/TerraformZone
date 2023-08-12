@@ -91,4 +91,10 @@ variable "app_subnet_name" {
 
 }
 
+variable "app_script_version" {
+  type    = string
+  default = "0"
+
+}
+
 
