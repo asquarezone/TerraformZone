@@ -8,6 +8,13 @@ terraform {
   }
   # this is terraform version constraints
   required_version = ">= 1.5.0"
+  backend "azurerm" {
+    resource_group_name = "bcdr"
+    storage_account_name = "qtterraform"
+    container_name = "terraform"
+    key = "ntier"
+    
+  }
 
 }
 
