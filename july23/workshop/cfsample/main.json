@@ -1,0 +1,17 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "cfvpc": {
+            "Type": "AWS::EC2::VPC",
+            "Properties": {
+                "CidrBlock": "192.168.0.0/16",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "cf"
+                    }
+                ]
+            }
+        }
+    }
+}
