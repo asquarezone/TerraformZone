@@ -1,6 +1,12 @@
 # Provider
 
 provider "azurerm" {
-    features {    
-    }
+  features {
+  }
+}
+
+resource "azurerm_resource_group" "first" {
+  name     = "fromterraform"
+  location = "southindia"
+
 }
