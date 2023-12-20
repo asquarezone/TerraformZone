@@ -9,17 +9,14 @@ variable "vpc_cidr" {
   default = "10.100.0.0/16"
 }
 
-variable "web_cidr" {
-  type    = string
-  default = "10.100.0.0/24"
+variable "subnetcount" {
+  type    = number
+  default = 3
 }
 
-variable "business_cidr" {
-  type    = string
-  default = "10.100.1.0/24"
+variable "subnet_cidrs" {
+  type    = list(string)
+  default = ["10.100.0.0/24", "10.100.1.0/24", "10.100.2.0/24"]
+
 }
 
-variable "data_cidr" {
-  type    = string
-  default = "10.100.2.0/24"
-}
