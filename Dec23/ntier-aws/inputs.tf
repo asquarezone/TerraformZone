@@ -9,14 +9,15 @@ variable "vpc_cidr" {
   default = "10.100.0.0/16"
 }
 
+
 variable "subnetcount" {
   type    = number
   default = 3
 }
 
-variable "subnet_cidrs" {
+variable "subnet_names" {
   type    = list(string)
-  default = ["10.100.0.0/24", "10.100.1.0/24", "10.100.2.0/24"]
+  default = ["web", "business", "data"]
 
 }
 
