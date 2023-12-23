@@ -1,7 +1,7 @@
 resource_group_name = "ntier1"
 location            = "eastus"
 network_cidr        = "192.168.0.0/16"
-subnet_names        = ["web", "app"]
+subnet_names        = ["web", "app", "data"]
 nsg_names           = ["web", "business", "data"]
 webnsg_rules_info = [{
   name                       = "AllowHttp"

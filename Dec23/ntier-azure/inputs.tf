@@ -14,7 +14,7 @@ variable "network_cidr" {
 
 variable "subnet_names" {
   type    = list(string)
-  default = ["web", "business", "data"]
+  default = ["test", "business", "data"]
 
 }
 

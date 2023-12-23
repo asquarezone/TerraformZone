@@ -59,5 +59,45 @@ resource "azurerm_network_security_rule" "rules" {
 
 
 
+resource "azurerm_network_interface" "webnic" {
+  name                = "webnic"
+  resource_group_name = azurerm_resource_group.ntier.name
+  location            = var.location
+  ip_configuration {
+    name = "web"
+    //todo: need to change from static indexing to dynamic
+    subnet_id                     = azurerm_subnet.subnets[0].id
+    private_ip_address_allocation = "Dynamic"
+  }
 
+}
+
+resource "azurerm_network_interface" "businessnic" {
+  name                = "businessnic"
+  resource_group_name = azurerm_resource_group.ntier.name
+  location            = var.location
+  ip_configuration {
+    name = "business"
+    //todo: need to change from static indexing to dynamic
+    subnet_id                     = azurerm_subnet.subnets[1].id
+    private_ip_address_allocation = "Dynamic"
+  }
+
+}
+
+resource "azurerm_network_interface" "datanic" {
+  name                = "datanic"
+  resource_group_name = azurerm_resource_group.ntier.name
+  location            = var.location
+  ip_configuration {
+    name = "data"
+    //todo: need to change from static indexing to dynamic
+    subnet_id                     = azurerm_subnet.subnets[2].id
+    private_ip_address_allocation = "Dynamic"
+  }
+
+  depends_on = [azurerm_subnet.subnets,
+  azurerm_network_security_rule.rules]
+
+}
 
