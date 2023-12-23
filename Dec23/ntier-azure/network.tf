@@ -68,6 +68,7 @@ resource "azurerm_network_interface" "webnic" {
     //todo: need to change from static indexing to dynamic
     subnet_id                     = azurerm_subnet.subnets[0].id
     private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.webip.id
   }
 
 }
@@ -99,5 +100,25 @@ resource "azurerm_network_interface" "datanic" {
   depends_on = [azurerm_subnet.subnets,
   azurerm_network_security_rule.rules]
 
+}
+
+
+resource "azurerm_network_interface_security_group_association" "web" {
+  network_interface_id = azurerm_network_interface.webnic.id
+  //todo: if possible replace with dynamic associations 
+  network_security_group_id = azurerm_network_security_group.nsgs[0].id
+
+}
+
+resource "azurerm_network_interface_security_group_association" "business" {
+  network_interface_id = azurerm_network_interface.businessnic.id
+  //todo: if possible replace with dynamic associations 
+  network_security_group_id = azurerm_network_security_group.nsgs[1].id
+}
+
+resource "azurerm_network_interface_security_group_association" "data" {
+  network_interface_id = azurerm_network_interface.datanic.id
+  //todo: if possible replace with dynamic associations 
+  network_security_group_id = azurerm_network_security_group.nsgs[2].id
 }
 
