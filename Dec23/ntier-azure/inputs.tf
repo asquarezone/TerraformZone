@@ -18,5 +18,44 @@ variable "subnet_names" {
 
 }
 
+variable "webnsg_rules_info" {
+  type = list(object({
+    name                       = string
+    protocol                   = string
+    source_port_range          = string
+    destination_port_range     = string
+    direction                  = string
+    source_address_prefix      = string
+    destination_address_prefix = string
+    access                     = string
+    priority                   = number
+  }))
+
+  default = [{
+    name                       = "AllowHttp"
+    protocol                   = "Tcp"
+    source_address_prefix      = "*"
+    source_port_range          = "*"
+    destination_address_prefix = "*"
+    destination_port_range     = "80"
+    direction                  = "Inbound"
+    access                     = "Allow"
+    priority                   = 300
+    },
+    {
+      name                       = "AllowHttps"
+      protocol                   = "Tcp"
+      source_address_prefix      = "*"
+      source_port_range          = "*"
+      destination_address_prefix = "*"
+      destination_port_range     = "443"
+      direction                  = "Inbound"
+      access                     = "Allow"
+      priority                   = 310
+    }
+  ]
+
+}
+
 
 
