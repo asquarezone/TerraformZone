@@ -6,6 +6,13 @@ terraform {
     }
   }
   // required_version = "> 1.6.0"
+  backend "s3" {
+    bucket = "qtdectfstate"
+    key = "examples/ntier-aws-existing"
+    region = "us-west-2"
+    dynamodb_table = "qtterraformstate"
+    
+  }
 }
 
 provider "aws" {
