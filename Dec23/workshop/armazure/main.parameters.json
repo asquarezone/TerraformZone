@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmName": {
+            "value": "simpleLinuxVM"
+        },
+        "adminUsername": {
+            "value": "Dell" 
+        },
+        "authenticationType": {
+            "value": "password"
+        },
+        "adminPasswordOrKey": {
+            "value": "workshoptoday@123"
+        },
+        "dnsLabelPrefix": {
+            "value": "ltworkshoptoday" 
+        },
+        "ubuntuOSVersion": {
+            "value": "Ubuntu-2204"
+        },
+        "location": {
+            "value": "eastus" 
+        },
+        "vmSize": {
+            "value": "Standard_B1s"
+        },
+        "virtualNetworkName": {
+            "value": "vNet"
+        },
+        "subnetName": {
+            "value": "Subnet"
+        },
+        "networkSecurityGroupName": {
+            "value": "SecGroupNet"
+        },
+        "securityType": {
+            "value": "TrustedLaunch"
+        }
+    }
+}
