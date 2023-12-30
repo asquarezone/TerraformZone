@@ -9,11 +9,18 @@ resource "aws_instance" "web" {
     Name = "Web"
   }
 
+
+}
+
+resource "null_resource" "forprovisioning" {
+  triggers = {
+    increment = var.flag
+  }
   connection {
     type        = "ssh"
     user        = "ubuntu"
     private_key = file("~/.ssh/id_rsa")
-    host        = self.public_ip
+    host        = aws_instance.web.public_ip
 
   }
 
@@ -31,4 +38,7 @@ resource "aws_instance" "web" {
     ]
 
   }
+
+  depends_on = [ aws_instance.web ]
+
 }
