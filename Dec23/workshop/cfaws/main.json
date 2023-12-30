@@ -1,0 +1,29 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Resources": {
+        "web": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "KeyName": "dell_idrsa",
+                "ImageId": "ami-008fe2fc65df48dac",
+                "InstanceType": "t2.micro",
+                "SecurityGroupIds": [
+                    "sg-05adaf452b268c335"
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -ex",
+                                "sudo apt update",
+                                "sudo apt install openjdk-17-jdk -y",
+                                "wget https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-3.1.0-SNAPSHOT.jar -P /tmp/"
+                            ]
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
