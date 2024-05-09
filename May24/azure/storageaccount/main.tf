@@ -1,31 +1,22 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "3.102.0"
-    }
+# declare a resource group
+resource "azurerm_resource_group" "group" {
+  name     = "learning"
+  location = "centralindia"
+  tags = {
+    Environment = "Dev"
+    CreatedBy   = "Terraform"
   }
 }
 
-provider "azurerm" {
-  features {
-
-  }
-}
-
-resource "azurerm_resource_group" "storage" {
-  name     = "storage"
-  location = "Central India"
-}
-
-resource "azurerm_storage_account" "example" {
-  name                     = "fromtfmay24"
-  resource_group_name      = azurerm_resource_group.storage.name
-  location                 = azurerm_resource_group.storage.location
+# declare a storage account
+resource "azurerm_storage_account" "store" {
+  name                     = "qtstoremay092024"
+  resource_group_name      = "learning"
+  location                 = "centralindia"
   account_tier             = "Standard"
   account_replication_type = "GRS"
-
   tags = {
-    environment = "staging"
+    Environment = "Dev"
+    CreatedBy   = "Terraform"
   }
 }
