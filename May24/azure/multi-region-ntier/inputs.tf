@@ -6,14 +6,15 @@ variable "primary_network_cidr" {
   default     = ["192.168.0.0/16"]
 }
 
-variable "web_subnet_cidr" {
-  type        = string
-  description = "This is web subnet cidr"
-  default     = "192.168.0.0/24"
-}
-variable "db_subnet_cidr" {
-  type        = string
-  description = "This is db subnet cidr"
-  default     = "192.168.1.0/24"
+variable "subnet_names" {
+  type        = list(string)
+  default     = ["web", "app", "db"]
+  description = "subnet names"
 
+}
+
+variable "subnet_cidrs" {
+  type        = list(string)
+  default     = ["192.168.0.0/24", "192.168.1.0/24", "192.168.2.0/24"]
+  description = "subnet cidrs"
 }

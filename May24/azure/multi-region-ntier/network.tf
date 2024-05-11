@@ -5,13 +5,14 @@ resource "azurerm_virtual_network" "primary" {
   resource_group_name = azurerm_resource_group.group.name
   location            = azurerm_resource_group.group.location
   address_space       = var.primary_network_cidr
-  subnet {
-    name           = "web"
-    address_prefix = var.web_subnet_cidr
-  }
-  subnet {
-    name           = "db"
-    address_prefix = var.db_subnet_cidr
-  }
-  depends_on = [azurerm_resource_group.group]
+  depends_on          = [azurerm_resource_group.group]
+}
+
+#create multiple subnets
+resource "azurerm_subnet" "subnets" {
+  count                = length(var.subnet_names)
+  name                 = var.subnet_names[count.index]
+  resource_group_name  = azurerm_resource_group.group.name
+  virtual_network_name = azurerm_virtual_network.primary.name
+  address_prefixes     = [var.subnet_cidrs[count.index]]
 }
