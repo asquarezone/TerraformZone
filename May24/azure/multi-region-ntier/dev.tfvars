@@ -23,3 +23,13 @@ web_nsg_rules = [{
   access                     = "Allow"
   priority                   = 1010
 }]
+web_vm_info = {
+  name            = "webvm"
+  size            = "Standard_B1s"
+  username        = "Dell"
+  public_key_path = "~/.ssh/id_rsa.pub"
+  publisher       = "canonical"
+  offer           = "0001-com-ubuntu-server-jammy"
+  sku             = "22_04-lts-gen2"
+  version         = "latest"
+}
