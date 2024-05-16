@@ -46,3 +46,37 @@ resource "azurerm_network_security_rule" "web" {
   ]
 
 }
+
+
+# Creating network interface
+resource "azurerm_network_interface" "web" {
+  name                = "webnic"
+  resource_group_name = azurerm_resource_group.group.name
+  location            = azurerm_resource_group.group.location
+  ip_configuration {
+    name                          = "web"
+    subnet_id                     = azurerm_subnet.subnets[0].id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.web.id
+  }
+
+  depends_on = [
+    azurerm_subnet.subnets,
+    azurerm_public_ip.web
+  ]
+
+}
+
+
+# associate network security group with network interface id
+resource "azurerm_network_interface_security_group_association" "nic_nsg" {
+  network_interface_id      = azurerm_network_interface.web.id
+  network_security_group_id = azurerm_network_security_group.web.id
+
+  depends_on = [
+    azurerm_network_interface.web,
+    azurerm_network_security_group.web
+  ]
+
+}
+
