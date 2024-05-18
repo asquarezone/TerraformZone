@@ -51,3 +51,16 @@ variable "security_group_info" {
 }
 
 
+variable "web_instance_info" {
+  type = object({
+    name              = string
+    size              = string
+    ami               = string
+    subnet_id         = string
+    security_group_id = string
+    key_name          = string
+  })
+
+}
+
+

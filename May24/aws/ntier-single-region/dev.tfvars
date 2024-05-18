@@ -43,6 +43,15 @@ security_group_info = {
       description = "open http"
     }
   ]
-  outbound_rules = []
+  outbound_rules   = []
   allow_all_egress = true
+}
+
+web_instance_info = {
+  name              = "web"
+  size              = "t2.micro"
+  ami               = "ami-05e00961530ae1b55"
+  subnet_id         = ""
+  security_group_id = ""
+  key_name          = "my_idrsa"
 }
