@@ -24,3 +24,25 @@ private_subnets = [{
   cidr = "192.168.3.0/24"
   }
 ]
+
+
+security_group_info = {
+  name        = "web"
+  description = "rule for web server"
+  vpc_id      = ""
+  inbound_rules = [{
+    cidr        = "0.0.0.0/0"
+    port        = 22
+    protocol    = "tcp"
+    description = "open ssh"
+    },
+    {
+      cidr        = "0.0.0.0/0"
+      port        = 80
+      protocol    = "tcp"
+      description = "open http"
+    }
+  ]
+  outbound_rules = []
+  allow_all_egress = true
+}
