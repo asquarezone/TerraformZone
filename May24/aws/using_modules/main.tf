@@ -65,3 +65,20 @@ module "db_security_group" {
     }]
   }
 }
+
+module "instances" {
+  source = "github.com/asquarezone/TerraformZone//May24/aws/modules/ec2"
+  count  = length(var.web_instances)
+  instance_info = {
+    name                        = var.web_instances[count.index]
+    ami                         = "ami-05e00961530ae1b55"
+    instance_type               = "t2.micro"
+    key_name                    = "my_idrsa"
+    subnet_id                   = module.vpc.public_subnets[0]
+    associate_public_ip_address = true
+    security_group_id           = module.web_security_group.security_group_id
+    user_data                   = true
+    user_data_file              = "install.sh"
+    size                        = "t2.micro"
+  }
+}
