@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "../modules/vpc"
+  source = "github.com/asquarezone/TerraformZone//May24/aws/modules/vpc"
   network_info = {
     name = "ntier-primary"
     cidr = "10.0.0.0/16"
@@ -22,7 +22,7 @@ module "vpc" {
 
 # create web security group
 module "web_security_group" {
-  source = "../modules/security_group"
+  source = "github.com/asquarezone/TerraformZone//May24/aws/modules/security_group"
   security_group_info = {
     name        = "web-sg"
     description = "web security group"
@@ -50,7 +50,7 @@ module "web_security_group" {
 
 # create a db security group to open 3306 port with in vpc
 module "db_security_group" {
-  source = "../modules/security_group"
+  source = "github.com/asquarezone/TerraformZone//May24/aws/modules/security_group"
   security_group_info = {
     name             = "mysql-db-sg"
     description      = "open mysql port within vpc"
