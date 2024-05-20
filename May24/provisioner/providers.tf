@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "s3" {
-    bucket = "terraformbackendqt"
+    bucket = "qtterraformbackend"
     key = "learning/provisioners"
     region = "ap-south-1"
     dynamodb_table = "forlocking"
