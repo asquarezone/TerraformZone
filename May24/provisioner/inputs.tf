@@ -29,3 +29,9 @@ variable "key_path" {
 
 }
 
+variable "build_id" {
+    type = string
+    default = "1"
+  
+}
+

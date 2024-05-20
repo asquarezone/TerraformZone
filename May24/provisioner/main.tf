@@ -47,11 +47,25 @@ resource "aws_instance" "web" {
   tags = {
     Name = "preschool"
   }
-  connection {
+  
+
+  depends_on = [
+    data.aws_ami.ubuntu,
+    data.aws_key_pair.id_rsa,
+    data.aws_security_group.openall,
+    data.aws_subnet.web
+  ]
+}
+
+resource "null_resource" "script" {
+    triggers = {
+        build_id = var.build_id
+    }
+    connection {
     type        = "ssh"
     user        = "ubuntu"
     private_key = file(var.key_path)
-    host        = self.public_ip
+    host        = aws_instance.web.public_ip
   }
 
   provisioner "remote-exec" {
@@ -63,10 +77,7 @@ resource "aws_instance" "web" {
 
   }
 
-  depends_on = [
-    data.aws_ami.ubuntu,
-    data.aws_key_pair.id_rsa,
-    data.aws_security_group.openall,
-    data.aws_subnet.web
-  ]
+
+    depends_on = [ aws_instance.web ]
+  
 }
