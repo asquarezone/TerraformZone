@@ -1,12 +1,12 @@
 resource "azurerm_resource_group" "base" {
-  name     = "terraform"
-  location = "eastus"
+  name     = var.resource_group_name
+  location = var.resource_group_location
 }
 
 resource "azurerm_virtual_network" "base" {
-  name                = "terraform"
+  name                = var.vnet_name
   resource_group_name = azurerm_resource_group.base.name # implicit 
-  address_space       = ["10.0.0.0/16"]
+  address_space       = [var.vnet_cidr]
   location            = azurerm_resource_group.base.location # implicit 
   # explicit
   depends_on = [
@@ -16,40 +16,40 @@ resource "azurerm_virtual_network" "base" {
 }
 
 resource "azurerm_subnet" "web" {
-  name                 = "web"
+  name                 = var.subnet_names[0]
   resource_group_name  = azurerm_resource_group.base.name
   virtual_network_name = azurerm_virtual_network.base.name
-  address_prefixes     = ["10.0.0.0/24"]
+  address_prefixes     = [var.subnet_cidrs[0]]
   depends_on = [
     azurerm_virtual_network.base
   ]
 }
 
 resource "azurerm_subnet" "app-1" {
-  name                 = "app-1"
+  name                 = var.subnet_names[1]
   resource_group_name  = azurerm_resource_group.base.name
   virtual_network_name = azurerm_virtual_network.base.name
-  address_prefixes     = ["10.0.1.0/24"]
+  address_prefixes     = [var.subnet_cidrs[1]]
   depends_on = [
     azurerm_virtual_network.base
   ]
 }
 
 resource "azurerm_subnet" "app-2" {
-  name                 = "app-2"
+  name                 = var.subnet_names[2]
   resource_group_name  = azurerm_resource_group.base.name
   virtual_network_name = azurerm_virtual_network.base.name
-  address_prefixes     = ["10.0.2.0/24"]
+  address_prefixes     = [var.subnet_cidrs[2]]
   depends_on = [
     azurerm_virtual_network.base
   ]
 }
 
 resource "azurerm_subnet" "db" {
-  name                 = "db"
+  name                 = var.subnet_names[3]
   resource_group_name  = azurerm_resource_group.base.name
   virtual_network_name = azurerm_virtual_network.base.name
-  address_prefixes     = ["10.0.3.0/24"]
+  address_prefixes     = [var.subnet_cidrs[3]]
   depends_on = [
     azurerm_virtual_network.base
   ]
