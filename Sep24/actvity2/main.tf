@@ -17,7 +17,7 @@ resource "azurerm_virtual_network" "base" {
 
 # This creates 4 resources
 resource "azurerm_subnet" "subnets" {
-  count                = 4
+  count                = length(var.subnets_config)
   name                 = var.subnets_config[count.index].name
   resource_group_name  = azurerm_resource_group.base.name
   virtual_network_name = azurerm_virtual_network.base.name
