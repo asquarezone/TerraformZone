@@ -21,10 +21,22 @@ subnets_config = [{
   cidr_block        = "192.168.2.0/24"
   availability_zone = "ap-south-1a"
   tags = {
-    Name = "db-1"
+    Name = "app-1"
   }
   }, {
   cidr_block        = "192.168.3.0/24"
+  availability_zone = "ap-south-1b"
+  tags = {
+    Name = "app-2"
+  }
+}, {
+  cidr_block        = "192.168.4.0/24"
+  availability_zone = "ap-south-1a"
+  tags = {
+    Name = "db-1"
+  }
+  }, {
+  cidr_block        = "192.168.5.0/24"
   availability_zone = "ap-south-1b"
   tags = {
     Name = "db-2"

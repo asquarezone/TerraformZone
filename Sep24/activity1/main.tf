@@ -4,7 +4,7 @@ resource "aws_vpc" "base" {
 }
 
 resource "aws_subnet" "subnets" {
-  count             = 4
+  count             = length(var.subnets_config)
   availability_zone = var.subnets_config[count.index].availability_zone
   vpc_id            = aws_vpc.base.id
   cidr_block        = var.subnets_config[count.index].cidr_block
