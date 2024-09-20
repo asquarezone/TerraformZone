@@ -15,43 +15,16 @@ resource "azurerm_virtual_network" "base" {
 
 }
 
-resource "azurerm_subnet" "web" {
-  name                 = var.subnet_names[0]
+# This creates 4 resources
+resource "azurerm_subnet" "subnets" {
+  count                = 4
+  name                 = var.subnet_names[count.index]
   resource_group_name  = azurerm_resource_group.base.name
   virtual_network_name = azurerm_virtual_network.base.name
-  address_prefixes     = [var.subnet_cidrs[0]]
+  address_prefixes     = [var.subnet_cidrs[count.index]]
   depends_on = [
     azurerm_virtual_network.base
   ]
 }
 
-resource "azurerm_subnet" "app-1" {
-  name                 = var.subnet_names[1]
-  resource_group_name  = azurerm_resource_group.base.name
-  virtual_network_name = azurerm_virtual_network.base.name
-  address_prefixes     = [var.subnet_cidrs[1]]
-  depends_on = [
-    azurerm_virtual_network.base
-  ]
-}
-
-resource "azurerm_subnet" "app-2" {
-  name                 = var.subnet_names[2]
-  resource_group_name  = azurerm_resource_group.base.name
-  virtual_network_name = azurerm_virtual_network.base.name
-  address_prefixes     = [var.subnet_cidrs[2]]
-  depends_on = [
-    azurerm_virtual_network.base
-  ]
-}
-
-resource "azurerm_subnet" "db" {
-  name                 = var.subnet_names[3]
-  resource_group_name  = azurerm_resource_group.base.name
-  virtual_network_name = azurerm_virtual_network.base.name
-  address_prefixes     = [var.subnet_cidrs[3]]
-  depends_on = [
-    azurerm_virtual_network.base
-  ]
-}
 
