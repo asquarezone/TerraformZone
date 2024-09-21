@@ -61,6 +61,13 @@ resource "aws_route_table_association" "public" {
   depends_on     = [aws_route_table.public, aws_subnet.public]
 }
 
+# create a route to internet gateway in public route table
+resource "aws_route" "internet" {
+  count                  = local.do_we_have_public_subnets ? 1 : 0
+  route_table_id         = aws_route_table.public[0].id
+  destination_cidr_block = local.anywhere
+  gateway_id             = aws_internet_gateway.ntier[0].id
+}
 
 
 # Create a private route table if there are private subnets
