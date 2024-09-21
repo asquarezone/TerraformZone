@@ -25,3 +25,16 @@ resource "aws_subnet" "private" {
   tags              = var.private_subnets[count.index].tags
   depends_on        = [aws_vpc.ntier]
 }
+
+
+# create an internet gateway
+
+resource "aws_internet_gateway" "ntier" {
+  # conditional creation
+  count  = length(var.public_subnets) > 0 ? 1 : 0
+  vpc_id = aws_vpc.ntier.id
+  tags = {
+    Name = "ntier-igw"
+  }
+
+}
