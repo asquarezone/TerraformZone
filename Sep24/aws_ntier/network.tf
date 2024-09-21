@@ -31,10 +31,55 @@ resource "aws_subnet" "private" {
 
 resource "aws_internet_gateway" "ntier" {
   # conditional creation
-  count  = length(var.public_subnets) > 0 ? 1 : 0
+  count  = local.do_we_have_public_subnets ? 1 : 0
   vpc_id = aws_vpc.ntier.id
   tags = {
     Name = "ntier-igw"
   }
+  depends_on = [aws_vpc.ntier]
+}
 
+
+# Create a public route table if there are public subnets
+resource "aws_route_table" "public" {
+  # conditional creation
+  count  = local.do_we_have_public_subnets ? 1 : 0
+  vpc_id = aws_vpc.ntier.id
+  tags = {
+    Name = "public"
+  }
+  depends_on = [aws_vpc.ntier]
+}
+
+
+# lets assocaiate public subnets with public route table
+
+resource "aws_route_table_association" "public" {
+  count          = length(var.public_subnets)
+  route_table_id = aws_route_table.public[0].id
+  subnet_id      = aws_subnet.public[count.index].id
+  depends_on     = [aws_route_table.public, aws_subnet.public]
+}
+
+
+
+# Create a private route table if there are private subnets
+resource "aws_route_table" "private" {
+  # conditional creation
+  count  = local.do_we_have_private_subnets ? 1 : 0
+  vpc_id = aws_vpc.ntier.id
+  tags = {
+    Name = "private"
+  }
+
+}
+
+
+# lets assocaiate private subnets with private route table
+
+resource "aws_route_table_association" "private" {
+  count          = length(var.private_subnets)
+  subnet_id      = aws_subnet.private[count.index].id
+  route_table_id = aws_route_table.private[0].id
+  depends_on     = [aws_subnet.private, aws_route_table.private]
 }
