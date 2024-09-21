@@ -45,3 +45,49 @@ private_subnets = [{
     Name = "db-2"
   }
 }]
+
+
+web_security_group = {
+  name        = "web"
+  description = "this opens 80 and 22 port"
+  inbound_rules = [{
+    port        = 22
+    protocol    = "tcp"
+    source      = "0.0.0.0/0"
+    description = "open ssh"
+    }, {
+    port        = 80
+    protocol    = "tcp"
+    source      = "0.0.0.0/0"
+    description = "open http"
+    }, {
+    port        = 443
+    protocol    = "tcp"
+    source      = "0.0.0.0/0"
+    description = "open https"
+  }]
+
+}
+
+app_security_group = {
+  name        = "app"
+  description = "open 8000 port within vpc"
+  inbound_rules = [{
+    port        = 8000
+    protocol    = "tcp"
+    source      = "10.100.0.0/16"
+    description = "open 8000 port"
+  }]
+}
+
+
+db_security_group = {
+  name        = "db"
+  description = "open 3306 port within vpc"
+  inbound_rules = [{
+    port        = 3306
+    protocol    = "tcp"
+    source      = "10.100.0.0/16"
+    description = "open 3306 port"
+  }]
+}
