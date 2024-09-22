@@ -61,3 +61,9 @@ app_nsg_info = {
   name  = "app"
   rules = []
 }
+
+public_ip_info = {
+  name              = "webip"
+  allocation_method = "Static"
+  sku               = "Standard"
+}

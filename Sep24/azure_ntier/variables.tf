@@ -59,3 +59,11 @@ variable "app_nsg_info" {
   })
 
 }
+
+variable "public_ip_info" {
+  type = object({
+    name              = string
+    allocation_method = string
+    sku               = string
+  })
+}
