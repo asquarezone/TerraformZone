@@ -56,3 +56,8 @@ web_nsg_info = {
     destination_address_prefix = "*"
   }]
 }
+
+app_nsg_info = {
+  name  = "app"
+  rules = []
+}
