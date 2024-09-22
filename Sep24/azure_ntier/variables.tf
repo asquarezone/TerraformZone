@@ -20,5 +20,23 @@ variable "subnets_info" {
     address_space = list(string)
   }))
   description = "subnets information"
+}
+
+variable "web_nsg_info" {
+  type = object({
+    name = string
+    rules = list(object({
+      name                       = string
+      priority                   = number
+      description                = string
+      direction                  = string # Inbound or Outbound
+      access                     = string # Allow or Deny
+      protocol                   = string
+      source_port_range          = string
+      destination_port_range     = string
+      source_address_prefix      = string
+      destination_address_prefix = string
+    }))
+  })
 
 }
