@@ -30,3 +30,33 @@ resource "azurerm_public_ip" "web" {
   depends_on          = [azurerm_resource_group.base]
 
 }
+
+
+# create a network interface
+resource "azurerm_network_interface" "web" {
+  name                = "web-nic"
+  resource_group_name = azurerm_resource_group.base.name
+  location            = azurerm_resource_group.base.location
+  ip_configuration {
+    name                          = "webip"
+    subnet_id                     = azurerm_subnet.subnets[0].id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.web.id
+  }
+
+  depends_on = [
+    azurerm_resource_group.base,
+    azurerm_subnet.subnets
+  ]
+
+}
+
+resource "azurerm_network_interface_security_group_association" "web" {
+  network_interface_id      = azurerm_network_interface.web.id
+  network_security_group_id = azurerm_network_security_group.web.id
+  depends_on = [
+    azurerm_network_interface.web,
+    azurerm_network_security_group.web
+  ]
+
+}
