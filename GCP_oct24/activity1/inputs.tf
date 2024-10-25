@@ -4,10 +4,18 @@ variable "project" {
   description = "project id"
 }
 
+# variable "subnets" {
+#   type = list(object({
+#     name          = string
+#     ip_cidr_range = string
+#     region        = string
+#   }))
+# }
+
 variable "subnets" {
-  type = list(object({
-    name          = string
+  type = map(object({
     ip_cidr_range = string
     region        = string
   }))
+
 }
