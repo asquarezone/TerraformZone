@@ -9,6 +9,6 @@ terraform {
 
 provider "google" {
   # Configuration options
-  project = "peak-responder-438809-q5"
+  project = var.project
 
 }
