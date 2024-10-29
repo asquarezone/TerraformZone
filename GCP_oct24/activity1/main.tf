@@ -43,5 +43,24 @@ resource "google_compute_firewall" "ssh" {
 }
 
 
+resource "google_compute_firewall" "web" {
+  description = "open web"
+  name        = "web"
+  network     = google_compute_network.base.id
+  source_ranges = [
+    local.anywhere,
+  ]
+  target_tags = [
+    "web",
+  ]
+
+  allow {
+    ports = [
+      local.http_port_number,
+    ]
+    protocol = local.tcp
+  }
+}
+
 
 

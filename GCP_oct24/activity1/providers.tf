@@ -5,6 +5,11 @@ terraform {
       version = "6.8.0"
     }
   }
+  backend "gcs" {
+    bucket = "lt_terraform_backend"
+    prefix = "activity1/state"
+    
+  }
 }
 
 provider "google" {
