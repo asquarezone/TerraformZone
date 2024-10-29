@@ -33,12 +33,12 @@ resource "google_compute_firewall" "ssh" {
   network     = google_compute_network.base.id
   description = "this rule opens 22 port from anywhere"
   allow {
-    protocol = "tcp"
-    ports    = ["22"]
+    protocol = local.tcp
+    ports    = [local.ssh_port_number]
   }
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = [local.anywhere]
   target_tags   = ["linux"]
-  depends_on = [ google_compute_network.base ]
+  depends_on    = [google_compute_network.base]
 
 }
 
