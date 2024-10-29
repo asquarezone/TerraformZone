@@ -23,3 +23,4 @@ subnets = {
     region        = "us-central1"
   }
 }
+openssh_rule_to_be_applied = true

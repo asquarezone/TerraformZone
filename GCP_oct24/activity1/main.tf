@@ -25,6 +25,23 @@ resource "google_compute_subnetwork" "subnets" {
   depends_on    = [google_compute_network.base]
 }
 
+# open ssh firewall rule
+
+resource "google_compute_firewall" "ssh" {
+  count       = var.openssh_rule_to_be_applied ? 1 : 0
+  name        = "openssh"
+  network     = google_compute_network.base.id
+  description = "this rule opens 22 port from anywhere"
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["linux"]
+  depends_on = [ google_compute_network.base ]
+
+}
+
 
 
 

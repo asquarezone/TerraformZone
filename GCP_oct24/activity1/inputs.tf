@@ -19,3 +19,9 @@ variable "subnets" {
   }))
 
 }
+
+variable "openssh_rule_to_be_applied" {
+  type        = bool
+  description = "whether to open ssh rule"
+
+}
