@@ -53,3 +53,46 @@ module "http_firewall" {
   depends_on = [module.network]
 
 }
+
+module "webserver" {
+    source = "./modules/compute_instance"
+    instance_info = {
+        name = "web1"
+        machine_type = "e2-small"
+        network = module.network.network_id
+        subnet = module.network.subnets["web"].id
+        zone = "us-central1-f"
+      
+    }
+  
+}
+
+module "mysql-db" {
+  source  = "terraform-google-modules/sql-db/google//modules/mysql"
+  version = "~> 23.0"
+
+  name                 = "threetier-db"
+  random_instance_name = true
+  database_version     = "MYSQL_5_6"
+  project_id           = var.project
+  zone                 = "us-central1-f"
+  region               = "us-central1"
+  tier                 = "db-n1-standard-1"
+
+  deletion_protection = false
+
+  ip_configuration = {
+    ipv4_enabled        = true
+    private_network     = null
+    ssl_mode            = "ALLOW_UNENCRYPTED_AND_ENCRYPTED"
+    allocated_ip_range  = null
+  }
+
+
+  database_flags = [
+    {
+      name  = "log_bin_trust_function_creators"
+      value = "on"
+    },
+  ]
+}
