@@ -1,3 +1,5 @@
 cluster_name = "autopilot-cluster-default"
 region       = "us-central1"
 network      = "default"
+build_id     = "1"
+deploy_id    = "1"

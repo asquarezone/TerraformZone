@@ -20,3 +20,15 @@ variable "network" {
   description = "pass the network name"
 
 }
+
+variable "build_id" {
+  type        = string
+  description = "build id"
+}
+
+variable "deploy_id" {
+  type        = string
+  description = "deploy id"
+  default     = "1"
+
+}
