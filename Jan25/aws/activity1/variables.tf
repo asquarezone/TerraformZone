@@ -10,21 +10,16 @@ variable "vpc_cidr" {
   description = "variable for network range"
 }
 
-variable "subnet_cidrs" {
-  type        = list(string)
-  default     = ["10.100.0.0/24", "10.100.1.0/24", "10.100.2.0/24", "10.100.3.0/24"]
-  description = "cidr ranges of subnets"
-
-}
-
-variable "subnet_azs" {
-  type    = list(string)
-  default = ["ap-south-1a", "ap-south-1b", "ap-south-1a", "ap-south-1b"]
-
-}
-
-variable "subnet_names" {
-  type    = list(string)
-  default = ["web-1", "web-2", "db-1", "db-2"]
+variable "subnets_info" {
+  type = list(object({
+    name = string
+    cidr = string
+    az   = string
+  }))
+  default = [{
+    name = "web-1"
+    cidr = "10.100.0.0/24"
+    az   = "ap-south-1a"
+  }]
 
 }
