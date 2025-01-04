@@ -1,5 +1,5 @@
 resource "aws_vpc" "network" {
-  cidr_block = "10.100.0.0/16"
+  cidr_block = var.vpc_cidr
   tags = {
     Name = "from tf"
   }
