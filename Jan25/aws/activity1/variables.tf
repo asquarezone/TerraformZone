@@ -22,3 +22,9 @@ variable "subnet_azs" {
   default = ["ap-south-1a", "ap-south-1b", "ap-south-1a", "ap-south-1b"]
 
 }
+
+variable "subnet_names" {
+  type    = list(string)
+  default = ["web-1", "web-2", "db-1", "db-2"]
+
+}
