@@ -34,3 +34,35 @@ variable "public_subnets" {
   description = "private subnets"
 
 }
+
+variable "web_security_group" {
+  type = object({
+    name        = optional(string, "web-sg")
+    description = optional(string, "This is security group for web server")
+    rules = list(object({
+      cidr_ipv4   = optional(string, "0.0.0.0/0")
+      from_port   = number
+      to_port     = number
+      ip_protocol = optional(string, "tcp")
+      }
+    ))
+  })
+  description = "web security group"
+
+}
+
+variable "db_security_group" {
+  type = object({
+    name        = optional(string, "db-sg")
+    description = optional(string, "This is security group for db server")
+    rules = list(object({
+      cidr_ipv4   = optional(string, "0.0.0.0/0")
+      from_port   = number
+      to_port     = number
+      ip_protocol = optional(string, "tcp")
+      }
+    ))
+  })
+  description = "web security group"
+
+}

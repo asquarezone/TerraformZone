@@ -21,3 +21,21 @@ public_subnets = [{
   az   = "ap-south-1b"
   }
 ]
+
+web_security_group = {
+  rules = [{
+    from_port = 22
+    to_port   = 22
+    }, {
+    from_port = 5000
+    to_port   = 5000
+  }]
+}
+
+db_security_group = {
+  rules = [{
+    from_port = 3306
+    to_port   = 3306
+    #cidr_ipv4 = "10.10.0.0/16"
+  }]
+}
