@@ -39,3 +39,7 @@ db_security_group = {
     #cidr_ipv4 = "10.10.0.0/16"
   }]
 }
+
+key_file_info = {
+  name = "mykeypair"
+}

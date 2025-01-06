@@ -66,3 +66,11 @@ variable "db_security_group" {
   description = "web security group"
 
 }
+
+variable "key_file_info" {
+  type = object({
+    name            = string
+    public_key_path = optional(string, "~/.ssh/id_rsa.pub")
+  })
+
+}

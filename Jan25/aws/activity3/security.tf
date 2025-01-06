@@ -50,3 +50,8 @@ resource "aws_vpc_security_group_egress_rule" "dbdefault" {
   cidr_ipv4         = local.anywhere
   ip_protocol       = -1
 }
+
+resource "aws_key_pair" "base" {
+  key_name   = var.key_file_info.name
+  public_key = file(var.key_file_info.public_key_path)
+}
