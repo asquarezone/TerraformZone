@@ -69,8 +69,19 @@ variable "db_security_group" {
 
 variable "key_file_info" {
   type = object({
-    name            = string
-    public_key_path = optional(string, "~/.ssh/id_rsa.pub")
+    name             = string
+    public_key_path  = optional(string, "~/.ssh/id_rsa.pub")
+    private_key_path = optional(string, "~/.ssh/id_rsa")
+  })
+}
+
+variable "web_server_info" {
+  type = object({
+    name                = string
+    ami                 = optional(string, "ami-053b12d3152c0cc71")
+    instance_type       = optional(string, "t2.micro")
+    associate_public_ip = optional(bool, true)
+    username            = optional(string, "ubuntu")
   })
 
 }

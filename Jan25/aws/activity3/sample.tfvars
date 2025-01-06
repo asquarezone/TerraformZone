@@ -43,3 +43,8 @@ db_security_group = {
 key_file_info = {
   name = "mykeypair"
 }
+
+web_server_info = {
+  name = "nginx"
+  ami  = "ami-053b12d3152c0cc71"
+}
