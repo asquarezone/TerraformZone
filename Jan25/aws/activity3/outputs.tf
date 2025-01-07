@@ -9,3 +9,4 @@ output "ssh_command" {
     var.web_server_info.username,
   aws_instance.web.public_ip)
 }
+
