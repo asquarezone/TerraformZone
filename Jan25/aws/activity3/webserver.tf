@@ -10,16 +10,7 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = [
     aws_security_group.base.id
   ]
-  connection {
-    type        = "ssh"
-    user        = var.web_server_info.username
-    private_key = file(var.key_file_info.private_key_path)
-    host        = self.public_ip
-  }
-  provisioner "remote-exec" {
-    script = "./install.sh"
 
-  }
 
   depends_on = [
     aws_key_pair.base,
@@ -27,5 +18,23 @@ resource "aws_instance" "web" {
     aws_security_group.base,
     data.aws_ami.webimage
   ]
+
+}
+
+resource "null_resource" "web_trigger" {
+  triggers = {
+    build_id = var.build_id
+  }
+
+  connection {
+    type        = "ssh"
+    user        = var.web_server_info.username
+    private_key = file(var.key_file_info.private_key_path)
+    host        = aws_instance.web.public_ip
+  }
+  provisioner "remote-exec" {
+    script = "./install.sh"
+
+  }
 
 }
