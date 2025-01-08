@@ -1,4 +1,3 @@
 #!/bin/bash
-apt update
-apt install nginx -y
-apt install tree -y
+sudo apt update
+sudo apt install nginx stress -y
