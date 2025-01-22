@@ -9,4 +9,14 @@ vpc_info = {
     Team        = "DevOps"
   }
 }
-region="ap-south-1"
+region = "ap-south-1"
+web_sg_info = {
+  name                = "websg"
+  description         = "open 80,443 and 22"
+  ingress_cidr_blocks = ["0.0.0.0/0"]
+  ingress_rules       = ["ssh-tcp", "http-80-tcp", "https-443-tcp"]
+}
+
+web_server_info = {
+  name = "web"
+}
